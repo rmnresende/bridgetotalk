@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: bridgetotalk-postgres
+    environment:
+      POSTGRES_USER: talk
+      POSTGRES_PASSWORD: talk123
+      POSTGRES_DB: bridgetotalk
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

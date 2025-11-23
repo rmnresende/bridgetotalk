@@ -7,7 +7,7 @@
 
 ## 🌟 Overview
 
-**TalkBridge** is a modern, scalable, multi-tenant backend application designed to centralize and manage customer service conversations across various external channels (WhatsApp, Telegram, etc.). It serves as a comprehensive portfolio project demonstrating professional software architecture, domain modeling, and cloud-native readiness.
+**BridgetoTalk** is a modern, scalable, multi-tenant backend application designed to centralize and manage customer service conversations across various external channels (WhatsApp, Telegram, etc.). It serves as a comprehensive portfolio project demonstrating professional software architecture, domain modeling, and cloud-native readiness.
 
 The core function is to route incoming customer messages to available human agents through a dynamic queue system, managing the entire lifecycle of a conversation (from **WAITING_IN_QUEUE** to **CLOSED**).
 
@@ -23,7 +23,7 @@ This project is built using the **Hexagonal Architecture (Ports and Adapters)** 
 
 ### Project Structure (Hexagonal)
 
-The main package structure (`com.renanresende.talkbridge`) follows the Hexagonal layers:
+The main package structure (`com.renanresende.bridgetotalk`) follows the Hexagonal layers:
 
 * `...domain`: **Core Business Entities** and Enums (`Agent`, `Queue`, `Conversation`). No framework dependencies.
 * `...application`: **Use Cases** (Business Logic). Contains **Ports** (interfaces `port.in` and `port.out`) and their **Services** (implementations).

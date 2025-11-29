@@ -1,0 +1,7 @@
+app:
+  constraints:
+    messages:
+      uk_company_email: "A company with this email already exists"
+      uk_company_name: "A company with this name already exists"
+      uk_company_document: "A company with this document already exists"
+      company_slug_key: "A company with this slug already exists"

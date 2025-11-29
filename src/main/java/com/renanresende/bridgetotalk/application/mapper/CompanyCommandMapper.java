@@ -32,17 +32,5 @@ public interface CompanyCommandMapper {
         if ( command.document() != null ) {
             company.setDocument( command.document() );
         }
-        if ( command.status() != null ) {
-            company.setStatus( command.status() );
-        }
-
-        linkBidirectionalReferences( command, company );
-    }
-
-    default void linkBidirectionalReferences(UpdateCompanyCommand updateCompanyCommand, @MappingTarget Company existingCompany) throws BusinessException {
-
-        if (updateCompanyCommand.settings() != null) {
-            existingCompany.getSettings().applyUpdate(updateCompanyCommand.settings());
-        }
     }
 }

@@ -11,7 +11,5 @@ public record UpdateCompanyCommand(
         String email,
         String phone,
         String document,
-        CompanyStatus status,
-        String slug,
-        UpdateCompanySettingsCommand settings
+        String slug
 ) {}

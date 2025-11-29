@@ -72,13 +72,9 @@ public class CompanyService implements ManageCompanyUseCase {
         Company company = repository.findById(companyId)
                 .orElseThrow(() -> new BusinessException("Company not found"));
 
-        // Validações de negócio
-        validateStatusTransition(company.getStatus(), newStatus);
+        company.changeStatus(newStatus);
 
         repository.updateStatus(companyId, newStatus);
-
-        // Atualiza o objeto em memória para retornar com dados atualizados
-        company.changeStatus(newStatus);
 
         return company;
     }

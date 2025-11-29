@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.application.mapper;
 
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanyCommand;
-import com.renanresende.bridgetotalk.commom.BusinessException;
+import com.renanresende.bridgetotalk.domain.exception.BusinessException;
 import com.renanresende.bridgetotalk.domain.Company;
 import com.renanresende.bridgetotalk.domain.CompanySettings;
 import org.mapstruct.*;
@@ -42,7 +42,7 @@ public interface CompanyCommandMapper {
     default void linkBidirectionalReferences(UpdateCompanyCommand updateCompanyCommand, @MappingTarget Company existingCompany) throws BusinessException {
 
         if (updateCompanyCommand.settings() != null) {
-            existingCompany.setSettings(CompanySettings.updatePlan(updateCompanyCommand.settings(), existingCompany.getSettings()));
+            existingCompany.getSettings().applyUpdate(updateCompanyCommand.settings());
         }
     }
 }

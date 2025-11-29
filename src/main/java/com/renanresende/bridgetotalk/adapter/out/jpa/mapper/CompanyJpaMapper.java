@@ -1,17 +1,11 @@
 package com.renanresende.bridgetotalk.adapter.out.jpa.mapper;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.CompanyJpaEntity;
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.CompanySettingsJpaEntity;
-import com.renanresende.bridgetotalk.commom.BusinessException;
+import com.renanresende.bridgetotalk.domain.exception.BusinessException;
 import com.renanresende.bridgetotalk.domain.Company;
 import com.renanresende.bridgetotalk.domain.CompanySettings;
-import com.renanresende.bridgetotalk.domain.Plan;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.*;
-import org.springframework.stereotype.Component;
-
-import java.time.Instant;
 
 @Mapper(componentModel = "spring")
 public interface CompanyJpaMapper {
@@ -35,7 +29,7 @@ public interface CompanyJpaMapper {
         companyJpaEntity.createdAt( company.getCreatedAt() );
         companyJpaEntity.updatedAt( company.getUpdatedAt() );
         companyJpaEntity.deletedAt( company.getDeletedAt() );
-        companyJpaEntity.settings( toSettingsEntity( company.getSettings() ) );
+        companyJpaEntity.settings( toSettingsEntityFromCompanyDomain( company.getSettings() ) );
 
         var entity = companyJpaEntity.build();
         linkBidirectionalReferences(company, entity);
@@ -47,10 +41,10 @@ public interface CompanyJpaMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromDomain(Company domain, @MappingTarget CompanyJpaEntity entity);
 
-    CompanySettingsJpaEntity toSettingsEntity(CompanySettings domainCompanySettings);
+    CompanySettingsJpaEntity toSettingsEntityFromCompanyDomain(CompanySettings domainCompanySettings);
 
-    default CompanySettingsJpaEntity toSettingsEntity(CompanySettings domainCompanySettings, Company company) {
-      var companySettingsJpaEntity  = toSettingsEntity(domainCompanySettings);
+    default CompanySettingsJpaEntity toSettingsEntityFromCompanyDomain(Company company) {
+      var companySettingsJpaEntity  = toSettingsEntityFromCompanyDomain(company.getSettings());
       companySettingsJpaEntity.setCompanyId(company.getId());
       return companySettingsJpaEntity;
     }

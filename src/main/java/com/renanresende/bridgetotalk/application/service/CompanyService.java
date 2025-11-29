@@ -3,12 +3,12 @@ package com.renanresende.bridgetotalk.application.service;
 import com.renanresende.bridgetotalk.application.mapper.CompanyCommandMapper;
 import com.renanresende.bridgetotalk.application.port.in.ManageCompanyUseCase;
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanyCommand;
+import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanySettingsCommand;
 import com.renanresende.bridgetotalk.application.port.out.CompanyRepositoryPort;
-import com.renanresende.bridgetotalk.commom.BusinessException;
+import com.renanresende.bridgetotalk.domain.exception.BusinessException;
 import com.renanresende.bridgetotalk.domain.Company;
 import com.renanresende.bridgetotalk.domain.CompanySettings;
 import com.renanresende.bridgetotalk.domain.CompanyStatus;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -46,14 +46,14 @@ public class CompanyService implements ManageCompanyUseCase {
     }
 
     @Override
-    public CompanySettings updateSettings(UUID companyId, CompanySettings newSettings) throws BusinessException {
+    public CompanySettings updateSettings(UUID companyId, UpdateCompanySettingsCommand updateCompanySettingsCommand) throws BusinessException {
 
         var existingCompany = repository.findById(companyId)
                 .orElseThrow(() -> new BusinessException("Company not found"));
 
-        newSettings = CompanySettings.updatePlan(newSettings, existingCompany.getSettings());
+        existingCompany.getSettings().applyUpdate(updateCompanySettingsCommand);
 
-        return repository.updateSettings(newSettings, existingCompany);
+        return repository.updateCompanySettings(existingCompany);
     }
 
     @Override

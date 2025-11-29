@@ -1,12 +1,12 @@
 package com.renanresende.bridgetotalk.adapter.in.web;
 
 import com.renanresende.bridgetotalk.adapter.in.web.dto.CompanyDto;
-import com.renanresende.bridgetotalk.adapter.in.web.dto.CompanySettingsDto;
+import com.renanresende.bridgetotalk.adapter.in.web.dto.CompanySettingsUpdateDto;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.UpdateCompanyStatusRequestDto;
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.CompanyDtoMapper;
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.CompanySettingsDtoMapper;
 import com.renanresende.bridgetotalk.application.port.in.ManageCompanyUseCase;
-import com.renanresende.bridgetotalk.commom.BusinessException;
+import com.renanresende.bridgetotalk.domain.exception.BusinessException;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,12 +71,13 @@ public class CompanyController {
     }
 
     @PutMapping("/{id}/settings")
-    public ResponseEntity<CompanySettingsDto> updateSettings(
+    public ResponseEntity<CompanySettingsUpdateDto> updateSettings(
             @PathVariable UUID id,
-            @RequestBody CompanySettingsDto request
+            @RequestBody CompanySettingsUpdateDto request
     ) throws BusinessException {
 
-        var domain = service.updateSettings(id, settingsMapper.toDomain(request));
+        var command = settingsMapper.toCommand(request);
+        var domain = service.updateSettings(id, command);
         return ResponseEntity.ok(settingsMapper.toDto(domain));
     }
 

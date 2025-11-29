@@ -1,6 +1,6 @@
 package com.renanresende.bridgetotalk.application.port.out;
 
-import com.renanresende.bridgetotalk.commom.BusinessException;
+import com.renanresende.bridgetotalk.domain.exception.BusinessException;
 import com.renanresende.bridgetotalk.domain.Company;
 import com.renanresende.bridgetotalk.domain.CompanySettings;
 import com.renanresende.bridgetotalk.domain.CompanyStatus;
@@ -13,7 +13,7 @@ public interface CompanyRepositoryPort {
 
     Company save(Company company);
 
-    CompanySettings updateSettings(CompanySettings settings, Company company) throws BusinessException;
+    CompanySettings updateCompanySettings(Company company) throws BusinessException;
 
     void updateStatus(UUID companyId, CompanyStatus status);
 

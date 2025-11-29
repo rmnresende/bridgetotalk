@@ -1,9 +1,7 @@
 package com.renanresende.bridgetotalk.adapter.in.web.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.renanresende.bridgetotalk.domain.CompanyStatus;
-import com.renanresende.bridgetotalk.domain.Plan;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -19,7 +17,7 @@ public record CompanyDto(
         String phone,
         String document,
         CompanyStatus status,
-        CompanySettingsDto settings,
+        CompanySettingsUpdateDto settings,
         Instant createdAt,
         Instant updatedAt,
         Instant deletedAt

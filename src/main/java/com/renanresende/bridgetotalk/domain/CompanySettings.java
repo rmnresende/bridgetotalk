@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.domain;
 
-import com.renanresende.bridgetotalk.commom.BusinessException;
-import org.apache.commons.lang3.StringUtils;
+import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanySettingsCommand;
+import com.renanresende.bridgetotalk.domain.exception.BusinessException;
 
 import java.time.Instant;
 
@@ -49,32 +49,35 @@ public class CompanySettings {
         );
     }
 
-    public static CompanySettings updatePlan(CompanySettings newSettings, CompanySettings existingSettings) throws BusinessException {
+    public void applyUpdate(UpdateCompanySettingsCommand update) throws BusinessException {
 
-        if(newSettings == null) {
-            throw new BusinessException("Plan can not be null");
+        if (update == null) {
+            throw new BusinessException("Update data can not be null");
         }
 
-        if(newSettings.getPlan() == null) {
-            newSettings.setplan(existingSettings.getPlan());
-        }
+        Plan updatedPlan = update.plan() == null
+                ? this.getPlan()
+                : update.plan();
 
+        this.setplan(updatedPlan);
 
-        //Cada plano tem as settings default, mas elas podem ser alteradas/customizadas
-        var newDefaultSettingsPLan = createFromPlan(newSettings.getPlan());
+        var defaultSettingsForPlan = createFromPlan(updatedPlan);
 
+        this.setMaxAgents(
+                update.maxAgents() == null
+                        ? defaultSettingsForPlan.getMaxAgents()
+                        : update.maxAgents()
+        );
 
-        //timezone e langague são usadas as que já existem caso não tenham sido informadas
-        existingSettings.setLanguage(StringUtils.isBlank(newSettings.getLanguage()) ? existingSettings.getLanguage() : newSettings.getLanguage());
-        existingSettings.setTimezone(StringUtils.isBlank(newSettings.getTimezone()) ? existingSettings.getTimezone() : newSettings.getTimezone());
+        this.setMaxQueues(
+                update.maxQueues() == null
+                        ? defaultSettingsForPlan.getMaxQueues()
+                        : update.maxQueues()
+        );
 
-        //verfivicando se foram enviadas settings customizadas ou se vai usar as defaults do novo plano
-        existingSettings.setMaxAgents(newSettings.getMaxAgents() == null ? newDefaultSettingsPLan.getMaxAgents() : newSettings.getMaxAgents());
-        existingSettings.setMaxQueues(newSettings.getMaxQueues() == null ? newDefaultSettingsPLan.getMaxQueues() : newSettings.getMaxQueues());
-        existingSettings.setUpdatedAt(newDefaultSettingsPLan.getUpdatedAt());
-        existingSettings.setplan(newSettings.getPlan());
-
-        return existingSettings;
+        this.setTimezone(update.timezone() == null ? this.getTimezone() : update.timezone());
+        this.setLanguage(update.language() == null ? this.getLanguage() : update.language());
+        this.setUpdatedAt(Instant.now());
     }
 
     public Integer getMaxAgents() { return maxAgents; }
@@ -113,5 +116,9 @@ public class CompanySettings {
             throw new BusinessException(field + " must be greater than zero");
         }
         return value;
+    }
+
+    private static boolean isBlank(String text) {
+        return text == null || text.trim().isEmpty();
     }
 }

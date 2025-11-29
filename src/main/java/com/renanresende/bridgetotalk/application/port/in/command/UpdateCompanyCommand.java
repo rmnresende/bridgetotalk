@@ -13,5 +13,5 @@ public record UpdateCompanyCommand(
         String document,
         CompanyStatus status,
         String slug,
-        CompanySettings settings
+        UpdateCompanySettingsCommand settings
 ) {}

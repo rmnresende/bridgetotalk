@@ -11,5 +11,4 @@ public enum AgentStatus {
     AgentStatus(String description) {
         this.description = description;
     }
-    // ... (Construtor e getter)
 }

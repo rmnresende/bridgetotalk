@@ -10,7 +10,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "company")
+@Table(name = "companies")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class CompanyJpaEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "UUID")
     private UUID id;
 

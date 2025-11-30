@@ -8,10 +8,10 @@ public interface AgentRepositoryPort {
 
     Agent save(Agent agent);
 
-    Optional<Agent> findById(UUID id);
+    Optional<Agent> findActiveAgentByIdAndCompanyId(UUID id, UUID companyId);
 
     // Essencial para login: encontrar um agente pelo email dentro de uma empresa
-    Optional<Agent> findByCompanyIdAndEmail(UUID companyId, String email);
+    Optional<Agent> findActiveAgentByCompanyIdAndEmail(UUID companyId, String email);
 
     // Contrato para o relacionamento N:M:
     void associateAgentToQueue(UUID agentId, UUID queueId);

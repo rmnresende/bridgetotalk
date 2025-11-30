@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class CompanyService implements ManageCompanyUseCase {
+public class ManagmentCompanyService implements ManageCompanyUseCase {
 
     private final CompanyRepositoryPort repository;
     private final CompanyCommandMapper commandMapper;
 
-    public CompanyService(CompanyRepositoryPort repository,
-                          CompanyCommandMapper commandMapper) {
+    public ManagmentCompanyService(CompanyRepositoryPort repository,
+                                   CompanyCommandMapper commandMapper) {
         this.repository = repository;
         this.commandMapper = commandMapper;
     }
@@ -59,7 +59,7 @@ public class CompanyService implements ManageCompanyUseCase {
 
     @Override
     public Company get(UUID id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Company not found"));
     }
 
     @Override

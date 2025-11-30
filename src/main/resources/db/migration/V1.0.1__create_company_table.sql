@@ -2,7 +2,7 @@
 --  COMPANY
 -- ============================
 
-CREATE TABLE company (
+CREATE TABLE companies (
     id UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     slug VARCHAR(255) NOT NULL UNIQUE,
@@ -16,16 +16,16 @@ CREATE TABLE company (
     deleted_at TIMESTAMP WITH TIME ZONE
 );
 
-CREATE INDEX idx_company_slug ON company (slug);
-CREATE INDEX idx_company_status ON company (status);
-CREATE INDEX idx_company_document ON company (document);
+CREATE INDEX idx_company_slug ON companies (slug);
+CREATE INDEX idx_company_status ON companies (status);
+CREATE INDEX idx_company_document ON companies (document);
 
 -- ============================
 --  COMPANY SETTINGS (1:1 Shared PK)
 -- ============================
 
 CREATE TABLE company_settings (
-    company_id UUID PRIMARY KEY REFERENCES company(id) ON DELETE CASCADE,
+    company_id UUID PRIMARY KEY REFERENCES companies(id) ON DELETE CASCADE,
 
     max_agents INT NOT NULL DEFAULT 5,
     max_queues INT NOT NULL DEFAULT 5,

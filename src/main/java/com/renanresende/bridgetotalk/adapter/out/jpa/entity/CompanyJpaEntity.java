@@ -10,17 +10,14 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "company")
+@Table(name = "companies")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class CompanyJpaEntity {
 
     @Id
-    @GeneratedValue
-    @Column(columnDefinition = "UUID")
     private UUID id;
 
     @Column(nullable = false)
@@ -52,6 +49,6 @@ public class CompanyJpaEntity {
     private Instant deletedAt;
 
     @Setter
-    @OneToOne(mappedBy = "company", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "company", fetch = FetchType.EAGER)
     private CompanySettingsJpaEntity settings;
 }

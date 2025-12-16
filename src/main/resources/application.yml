@@ -13,3 +13,30 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+
+management:
+  server:
+    port: 8080 # normalmente o mesmo da aplicação
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include:
+          - health
+          - prometheus
+
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+
+  info:
+    env:
+      enabled: false
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: BridgeToTalk API (Production)
+    version: ${APP_VERSION:unknown}

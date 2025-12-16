@@ -1,57 +1,25 @@
 package com.renanresende.bridgetotalk.application.port.in;
 
+import com.renanresende.bridgetotalk.adapter.in.web.dto.AgentFilter;
+import com.renanresende.bridgetotalk.application.port.in.command.CreateAgentCommand;
 import com.renanresende.bridgetotalk.domain.Agent;
-import com.renanresende.bridgetotalk.domain.AgentRole;
+import com.renanresende.bridgetotalk.domain.AgentStatus;
+
+import java.util.List;
 import java.util.UUID;
 
 public interface ManageAgentUseCase {
 
-    Agent createAgent(CreateAgentCommand command);
+    Agent create(CreateAgentCommand command);
 
-    void updateAgentStatus(UpdateAgentStatusCommand command);
+    Agent getActiveAgent(UUID id, UUID companyId);
 
-    void associateAgentToQueue(AssociateAgentToQueueCommand command);
+    List<Agent> filterActiveAgentsByCompanyId(AgentFilter agentFilter, UUID companyId);
 
-    // Commands para encapsular dados:
-    class CreateAgentCommand {
-        private final UUID companyId;
-        private final String name;
-        private final String email;
-        private final String password;
-        private final AgentRole role;
+    void updateAgentStatus(UUID id, UUID companyId, AgentStatus status);
 
-        public CreateAgentCommand(UUID companyId, String name, String email, String password, AgentRole role) {
-            this.companyId = companyId;
-            this.name = name;
-            this.email = email;
-            this.password = password;
-            this.role = role;
-        }
+//    void associateAgentToQueue(AssociateAgentToQueueCommand command);
 
-        // Construtor, getters
-    }
+    void deleteAgent(UUID id, UUID companyId);
 
-    class UpdateAgentStatusCommand {
-        private final UUID agentId;
-        private final String newStatus; // Usaremos String/Enum
-
-        public UpdateAgentStatusCommand(UUID agentId, String newStatus) {
-            this.agentId = agentId;
-            this.newStatus = newStatus;
-        }
-
-        // Construtor, getters
-    }
-
-    class AssociateAgentToQueueCommand {
-        private final UUID agentId;
-        private final UUID queueId;
-
-        public AssociateAgentToQueueCommand(UUID agentId, UUID queueId) {
-            this.agentId = agentId;
-            this.queueId = queueId;
-        }
-
-        // Construtor, getters
-    }
 }

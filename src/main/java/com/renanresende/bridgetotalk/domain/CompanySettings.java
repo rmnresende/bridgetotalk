@@ -33,7 +33,7 @@ public class CompanySettings {
 
     // Factory method para criação inicial
     //TODO verificar crate company
-    public static CompanySettings createFromPlan(Plan plan) throws BusinessException {
+    public static CompanySettings createFromPlan(Plan plan) {
 
         if(plan == null) {
             plan = Plan.BASIC;
@@ -49,7 +49,7 @@ public class CompanySettings {
         );
     }
 
-    public void applyUpdate(UpdateCompanySettingsCommand update) throws BusinessException {
+    public void applyUpdate(UpdateCompanySettingsCommand update) {
 
         if (update == null) {
             throw new BusinessException("Update data can not be null");

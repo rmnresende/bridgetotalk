@@ -7,9 +7,12 @@
 
 ## 🌟 Overview
 
-**BridgetoTalk** is a modern, scalable, multi-tenant backend application designed to centralize and manage customer service conversations across various external channels (WhatsApp, Telegram, etc.). It serves as a comprehensive portfolio project demonstrating professional software architecture, domain modeling, and cloud-native readiness.
+**BridgetoTalk** is a modern, scalable, multi-tenant backend application designed to centralize and manage customer 
+service conversations across various external channels (WhatsApp, Telegram, etc.). It serves as a comprehensive portfolio 
+project demonstrating professional software architecture, domain modeling, and cloud-native readiness.
 
-The core function is to route incoming customer messages to available human agents through a dynamic queue system, managing the entire lifecycle of a conversation (from **WAITING_IN_QUEUE** to **CLOSED**).
+The core function is to route incoming customer messages to available human agents through a dynamic queue system, 
+managing the entire lifecycle of a conversation (from **WAITING_IN_QUEUE** to **CLOSED**).
 
 ---
 

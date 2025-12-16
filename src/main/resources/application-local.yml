@@ -1,0 +1,37 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Reseta sempre que iniciar
+
+management:
+  server:
+    port: 8080 # opcional: pode separar porta se quiser (ex: 8081)
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - loggers
+          - env
+          - beans
+          - mappings
+          - prometheus
+
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: BridgeToTalk API (Local)
+    version: 0.0.1-SNAPSHOT

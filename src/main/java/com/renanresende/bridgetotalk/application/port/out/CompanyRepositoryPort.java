@@ -4,6 +4,7 @@ import com.renanresende.bridgetotalk.domain.exception.BusinessException;
 import com.renanresende.bridgetotalk.domain.Company;
 import com.renanresende.bridgetotalk.domain.CompanySettings;
 import com.renanresende.bridgetotalk.domain.CompanyStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +12,14 @@ import java.util.UUID;
 
 public interface CompanyRepositoryPort {
 
-    Company save(Company company);
+    @Transactional
+    Company saveNew(Company company);
 
-    CompanySettings updateCompanySettings(Company company) throws BusinessException;
+    @Transactional
+    Company update(Company company);
 
-    void updateStatus(UUID companyId, CompanyStatus status);
+    @Transactional
+    CompanySettings updateSettings(Company company);
 
     Optional<Company> findById(UUID id);
 
@@ -23,7 +27,7 @@ public interface CompanyRepositoryPort {
 
     List<Company> findAll();
 
-    void delete(UUID id);
+    boolean inactiveCompany(UUID id);
 
     boolean existsBySlug(String slug);
 }

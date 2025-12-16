@@ -22,4 +22,8 @@ public interface SpringDataCompanyRepository extends JpaRepository<CompanyJpaEnt
     @Modifying
     @Query("UPDATE CompanyJpaEntity c SET c.status = :status, c.updatedAt = :updatedAt WHERE c.id = :id")
     int updateStatusAndUpdatedAtById(@Param("id") UUID id, @Param("status") CompanyStatus status, @Param("updatedAt") Instant updatedAt);
+
+    @Modifying
+    @Query("UPDATE CompanyJpaEntity c SET c.status = INACTIVE, c.deletedAt = :deletedAt WHERE c.id = :id")
+    int inactiveCompany(@Param("id") UUID id, @Param("deletedAt") Instant deletedAt);
 }

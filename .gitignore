@@ -33,3 +33,6 @@ build/
 .vscode/
 
 /docs
+
+export-code.sh
+export-project-output.txt

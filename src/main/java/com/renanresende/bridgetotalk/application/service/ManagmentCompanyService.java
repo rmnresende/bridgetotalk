@@ -1,6 +1,5 @@
 package com.renanresende.bridgetotalk.application.service;
 
-import com.renanresende.bridgetotalk.application.mapper.CompanyCommandMapper;
 import com.renanresende.bridgetotalk.application.port.in.ManageCompanyUseCase;
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanyCommand;
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanySettingsCommand;
@@ -12,54 +11,58 @@ import com.renanresende.bridgetotalk.domain.CompanyStatus;
 import com.renanresende.bridgetotalk.domain.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class CompanyService implements ManageCompanyUseCase {
+public class ManagmentCompanyService implements ManageCompanyUseCase {
 
     private final CompanyRepositoryPort repository;
-    private final CompanyCommandMapper commandMapper;
 
-    public CompanyService(CompanyRepositoryPort repository,
-                          CompanyCommandMapper commandMapper) {
+    public ManagmentCompanyService(CompanyRepositoryPort repository) {
         this.repository = repository;
-        this.commandMapper = commandMapper;
     }
 
     @Override
     public Company create(Company company) {
-        return repository.save(company);
+        return repository.saveNew(company);
     }
 
     @Override
-    public Company update(UpdateCompanyCommand command) throws BusinessException {
+    public Company update(UpdateCompanyCommand command) {
 
-        var existing = repository.findById(command.id())
+        Company existing = repository.findById(command.id())
                 .orElseThrow(() -> new ResourceNotFoundException("Company not found"));
 
-        commandMapper.updateDomainFromCommand(command, existing);
+        existing.update(
+                command.name(),
+                command.slug(),
+                command.email(),
+                command.phone(),
+                command.document()
+        );
 
-        existing.setUpdatedAt(Instant.now());
-
-        return repository.save(existing);
+        return repository.update(existing);
     }
 
     @Override
-    public CompanySettings updateSettings(UUID companyId, UpdateCompanySettingsCommand updateCompanySettingsCommand) throws BusinessException {
+    public CompanySettings updateSettings(
+            UUID companyId,
+            UpdateCompanySettingsCommand command
+    ) {
 
-        var existingCompany = repository.findById(companyId)
+        Company existing = repository.findById(companyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Company not found"));
 
-        existingCompany.getSettings().applyUpdate(updateCompanySettingsCommand);
+        existing.getSettings().applyUpdate(command);
 
-        return repository.updateCompanySettings(existingCompany);
+        return repository.updateSettings(existing);
     }
 
     @Override
     public Company get(UUID id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Company not found"));
     }
 
     @Override
@@ -68,21 +71,14 @@ public class CompanyService implements ManageCompanyUseCase {
     }
 
     @Override
-    public Company changeStatus(UUID companyId, CompanyStatus newStatus) throws BusinessException {
+    public Company changeStatus(UUID companyId, CompanyStatus newStatus) {
 
         Company company = repository.findById(companyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Company not found"));
 
         company.changeStatus(newStatus);
 
-        repository.updateStatus(companyId, newStatus);
-
-        return company;
-    }
-
-    private void validateStatusTransition(CompanyStatus current, CompanyStatus target) throws BusinessException {
-        if (current == target) {
-            throw new BusinessException("A empresa já está com o status: " + target);
-        }
+        return repository.update(company);
     }
 }
+

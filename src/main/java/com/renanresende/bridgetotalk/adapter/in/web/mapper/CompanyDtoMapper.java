@@ -1,7 +1,8 @@
 package com.renanresende.bridgetotalk.adapter.in.web.mapper;
 
-import com.renanresende.bridgetotalk.adapter.in.web.dto.CompanyDto;
+import com.renanresende.bridgetotalk.adapter.in.web.dto.CreateCompanyDto;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.CompanySettingsUpdateDto;
+import com.renanresende.bridgetotalk.adapter.in.web.dto.ResponseCompanyDto;
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanyCommand;
 import com.renanresende.bridgetotalk.domain.exception.BusinessException;
 import com.renanresende.bridgetotalk.domain.Company;
@@ -17,12 +18,24 @@ import java.util.UUID;
 public interface CompanyDtoMapper {
 
     @Mapping(target = "id", ignore = true) // sempre gerado pelo Company()
-    Company toDomain(CompanyDto dto);
+    default Company toDomain(CreateCompanyDto dto){
 
-    CompanyDto toDto(Company company);
+        return Company.createNew(
+                dto.name(),
+                dto.slug(),
+                dto.email(),
+                dto.phone(),
+                dto.document(),
+                dto.plan()
+        );
+    }
+
+    CreateCompanyDto toCreateCompanyDto(Company company);
 
     @Mapping(target = "id", source = "id")
-    UpdateCompanyCommand toCommand(UUID id, CompanyDto dto);
+    UpdateCompanyCommand toCommand(UUID id, CreateCompanyDto dto);
+
+    ResponseCompanyDto toResponseDto(Company company);
 
     default CompanySettings companySettingsUpdateDtoToCompanySettings(CompanySettingsUpdateDto companySettingsDto) throws BusinessException {
         if ( companySettingsDto == null ) {

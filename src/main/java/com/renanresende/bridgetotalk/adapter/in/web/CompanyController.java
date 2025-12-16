@@ -1,7 +1,8 @@
 package com.renanresende.bridgetotalk.adapter.in.web;
 
-import com.renanresende.bridgetotalk.adapter.in.web.dto.CompanyDto;
+import com.renanresende.bridgetotalk.adapter.in.web.dto.CreateCompanyDto;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.CompanySettingsUpdateDto;
+import com.renanresende.bridgetotalk.adapter.in.web.dto.ResponseCompanyDto;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.UpdateCompanyStatusRequestDto;
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.CompanyDtoMapper;
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.CompanySettingsDtoMapper;
@@ -32,42 +33,42 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<CompanyDto> create(
-            @RequestBody CompanyDto request
+    public ResponseEntity<ResponseCompanyDto> create(
+            @RequestBody CreateCompanyDto request
     ) {
         var domain = mapper.toDomain(request);
         var response = service.create(domain);
 
         return ResponseEntity
                 .created(URI.create("/api/v1/companies/" + response.getId()))
-                .body(mapper.toDto(response));
+                .body(mapper.toResponseDto(response));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CompanyDto> getById(@PathVariable UUID id) {
+    public ResponseEntity<ResponseCompanyDto> getById(@PathVariable UUID id) {
         var domain = service.get(id);
-        return ResponseEntity.ok(mapper.toDto(domain));
+        return ResponseEntity.ok(mapper.toResponseDto(domain));
     }
 
     @GetMapping
-    public ResponseEntity<List<CompanyDto>> list() {
+    public ResponseEntity<List<ResponseCompanyDto>> list() {
         var companies = service.list()
                 .stream()
-                .map(mapper::toDto)
+                .map(mapper::toResponseDto)
                 .toList();
 
         return ResponseEntity.ok(companies);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CompanyDto> update(
+    public ResponseEntity<ResponseCompanyDto> update(
             @PathVariable UUID id,
-            @RequestBody CompanyDto request
+            @RequestBody CreateCompanyDto request
     ) throws BusinessException {
 
         var command = mapper.toCommand(id, request);
         var domain = service.update(command);
-        return ResponseEntity.ok(mapper.toDto(domain));
+        return ResponseEntity.ok(mapper.toResponseDto(domain));
     }
 
     @PutMapping("/{id}/settings")
@@ -82,7 +83,7 @@ public class CompanyController {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<CompanyDto> updateStatus(
+    public ResponseEntity<Void> updateStatus(
             @PathVariable UUID id,
             @Valid @RequestBody UpdateCompanyStatusRequestDto request) throws BusinessException {
         service.changeStatus(id, request.status());

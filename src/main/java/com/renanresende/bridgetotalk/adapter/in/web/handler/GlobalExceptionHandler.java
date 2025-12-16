@@ -3,6 +3,7 @@ package com.renanresende.bridgetotalk.adapter.in.web.handler;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.ApiError;
 import com.renanresende.bridgetotalk.adapter.in.web.resolver.ConstraintMessageResolver;
 import com.renanresende.bridgetotalk.domain.exception.BusinessException;
+import com.renanresende.bridgetotalk.domain.exception.InvalidEnumValueException;
 import com.renanresende.bridgetotalk.domain.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.Instant;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -20,6 +22,24 @@ public class GlobalExceptionHandler {
 
     public GlobalExceptionHandler(ConstraintMessageResolver constraintMessageResolver) {
         this.constraintMessageResolver = constraintMessageResolver;
+    }
+
+
+    @ExceptionHandler(InvalidEnumValueException.class)
+    public ResponseEntity<ApiError> handleInvalidEnumValue(
+            InvalidEnumValueException ex,
+            HttpServletRequest request
+    ) {
+
+        var error = new ApiError(
+                HttpStatus.BAD_REQUEST.value(),
+                "INVALID_PARAMETER",
+                ex.getMessage() + " Allowed values: " + ex.getAllowedValues(),
+                request.getRequestURI(),
+                Instant.now()
+        );
+
+       return ResponseEntity.badRequest().body(error);
     }
 
     // 422 - Business Rules
@@ -62,8 +82,8 @@ public class GlobalExceptionHandler {
             DataIntegrityViolationException ex,
             HttpServletRequest request
     ) {
-        String dbMessage = ex.getMostSpecificCause().getMessage();
-        String friendlyMessage = constraintMessageResolver.resolve(dbMessage);
+        var dbMessage = ex.getMostSpecificCause().getMessage();
+        var friendlyMessage = constraintMessageResolver.resolve(dbMessage);
 
         var error = new ApiError(
                 HttpStatus.CONFLICT.value(),

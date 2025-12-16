@@ -13,7 +13,6 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class CompanySettingsJpaEntity {
 
     @Id
@@ -32,7 +31,7 @@ public class CompanySettingsJpaEntity {
     @Column(nullable = false, length = 10)
     private String language;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST})
     @MapsId //settings é uma extensão de Company
     @JoinColumn(name = "company_id")
     private CompanyJpaEntity company;

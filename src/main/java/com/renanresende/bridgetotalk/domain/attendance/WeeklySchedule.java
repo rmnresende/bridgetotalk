@@ -48,6 +48,12 @@ public class WeeklySchedule {
         return new WeeklySchedule(Map.copyOf(schedules));
     }
 
+    /**
+     * A day without ranges, is a closed day. Return true if the time of the day,
+     * is contained within any of the daily ranges.
+     * @param dateTime
+     * @return
+     */
     public boolean isOpenAt(QueueDateTime dateTime) {
         var daily = schedules.get(dateTime.dayOfWeek());
         return daily != null && daily.isWithin(dateTime.time());

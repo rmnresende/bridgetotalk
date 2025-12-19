@@ -13,6 +13,12 @@ public record TimeRange(
         }
     }
 
+
+    /**
+     * Start inclusive and end exclusive
+     * @param time
+     * @return
+     */
     public boolean contains(LocalTime time) {
         return !time.isBefore(start) && time.isBefore(end);
     }

@@ -36,6 +36,12 @@ public class DailySchedule {
         }
     }
 
+    /**
+     * Return true if time containded within in any of daily ranges,
+     * otherwise return false
+     * @param time
+     * @return
+     */
     public boolean isWithin(LocalTime time) {
         return ranges.stream().anyMatch(r -> r.contains(time));
     }

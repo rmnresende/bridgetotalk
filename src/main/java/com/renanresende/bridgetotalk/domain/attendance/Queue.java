@@ -5,6 +5,7 @@ import com.renanresende.bridgetotalk.domain.util.DomainStrings;
 import lombok.Getter;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ public class Queue {
     private Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
+    private QueueSettings settings;
 
     private Queue(  UUID id,
                     UUID companyId,
@@ -92,5 +94,9 @@ public class Queue {
         }
 
         this.updatedAt = Instant.now();
+    }
+
+    public boolean isOpenForAttendance(LocalDateTime dateTime) {
+        return settings.isOpenAt(QueueDateTime.now(dateTime));
     }
 }

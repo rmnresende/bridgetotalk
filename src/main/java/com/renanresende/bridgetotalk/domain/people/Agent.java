@@ -67,9 +67,6 @@ public class Agent {
        );
     }
 
-
-
-    // Método/Construtor para CRIAR uma nova entidade (usado pelo Service)
     public static Agent createNew(
                                   UUID companyId,
                                   String name,
@@ -101,5 +98,9 @@ public class Agent {
 
         this.status = newStatus;
         this.updatedAt = Instant.now();
+    }
+
+    public boolean isNotAvailable(){
+        return AgentStatus.AVAILABLE != this.status;
     }
 }

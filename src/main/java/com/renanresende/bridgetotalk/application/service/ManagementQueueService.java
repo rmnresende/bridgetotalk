@@ -78,7 +78,7 @@ public class ManagementQueueService implements ManageQueueUseCase {
     @Override
     public void linkAgentToQueue(LinkQueueAgentCommand linkQueueAgentCommand) {
 
-        validateIfBelongSameCompany(linkQueueAgentCommand.agentId(), linkQueueAgentCommand.queueId());
+        validatePreConditionsToLink(linkQueueAgentCommand.agentId(), linkQueueAgentCommand.queueId());
 
         agentQueueRepository.linkAgentToQueue(linkQueueAgentCommand.agentId(),
                                               linkQueueAgentCommand.queueId(),
@@ -89,20 +89,36 @@ public class ManagementQueueService implements ManageQueueUseCase {
     @Override
     public void unlinkAgentFromQueue(UUID agentId, UUID queueId) {
 
-        validateIfBelongSameCompany(agentId, queueId);
+        validatePreConditionsToUnlink(agentId, queueId);
         agentQueueRepository.unlinkAgentFromQueue(agentId, queueId);
     }
 
     private void validateQueuePreConditions(String name, UUID companyId) {
         companyRepository.findById(companyId)
-                .orElseThrow(() -> new CompanyNotFoundException(companyId));
+                         .orElseThrow(() -> new CompanyNotFoundException(companyId));
 
         if (existisQueueInCompanyWithSameName(name, companyId)) {
             throw new ResourceAlreadyExistsException("Already exists a queue with same name in this company");
         }
     }
 
-    private void validateIfBelongSameCompany(UUID agentId, UUID queueId) {
+    private void validatePreConditionsToLink(UUID agentId, UUID queueId) {
+        var existingQueue = queueRepository.findById(queueId)
+                .orElseThrow(() -> new QueueNotFoundException(queueId));
+
+        var existingAgent = agentRepository.findById(agentId)
+                .orElseThrow(() -> new AgentNotFoundException(agentId));
+
+        if(existingAgent.isNotAvailable()){
+            throw new BusinessException("Agent must be available to be linked to a queue");
+        }
+
+        if (!existingAgent.getCompanyId().equals(existingQueue.getCompanyId())) {
+            throw new BusinessException("Agent and Queue must belong to the same company");
+        }
+    }
+
+    private void validatePreConditionsToUnlink(UUID agentId, UUID queueId) {
         var existingQueue = queueRepository.findById(queueId)
                 .orElseThrow(() -> new QueueNotFoundException(queueId));
 

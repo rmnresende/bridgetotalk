@@ -2,8 +2,8 @@ package com.renanresende.bridgetotalk.adapter.out.jpa.mapper;
 
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.CompanyJpaEntity;
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.CompanySettingsJpaEntity;
-import com.renanresende.bridgetotalk.domain.Company;
-import com.renanresende.bridgetotalk.domain.CompanySettings;
+import com.renanresende.bridgetotalk.domain.organization.Company;
+import com.renanresende.bridgetotalk.domain.organization.CompanySettings;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

@@ -1,6 +1,6 @@
 package com.renanresende.bridgetotalk.adapter.out.jpa.entity;
 
-import com.renanresende.bridgetotalk.domain.DistributionStrategy;
+import com.renanresende.bridgetotalk.domain.attendance.DistributionStrategy;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

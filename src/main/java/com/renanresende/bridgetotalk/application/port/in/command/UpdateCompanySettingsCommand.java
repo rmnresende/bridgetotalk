@@ -1,6 +1,6 @@
 package com.renanresende.bridgetotalk.application.port.in.command;
 
-import com.renanresende.bridgetotalk.domain.Plan;
+import com.renanresende.bridgetotalk.domain.organization.Plan;
 
 public record UpdateCompanySettingsCommand(
         Integer maxAgents,

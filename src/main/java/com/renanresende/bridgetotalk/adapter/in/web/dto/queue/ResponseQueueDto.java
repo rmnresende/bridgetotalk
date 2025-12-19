@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.adapter.in.web.dto.queue;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.renanresende.bridgetotalk.domain.DistributionStrategy;
+import com.renanresende.bridgetotalk.domain.attendance.DistributionStrategy;
 
 import java.time.Instant;
 import java.util.UUID;

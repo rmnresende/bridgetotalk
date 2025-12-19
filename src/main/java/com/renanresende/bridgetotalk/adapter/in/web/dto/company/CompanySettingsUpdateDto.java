@@ -1,6 +1,6 @@
 package com.renanresende.bridgetotalk.adapter.in.web.dto.company;
 
-import com.renanresende.bridgetotalk.domain.Plan;
+import com.renanresende.bridgetotalk.domain.organization.Plan;
 
 public record CompanySettingsUpdateDto(
         Integer maxAgents,

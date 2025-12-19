@@ -7,15 +7,14 @@ import com.renanresende.bridgetotalk.adapter.out.jpa.entity.QueueJpaEntity;
 import com.renanresende.bridgetotalk.adapter.out.jpa.mapper.AgentJpaMapper;
 import com.renanresende.bridgetotalk.adapter.out.jpa.mapper.QueueJpaMapper;
 import com.renanresende.bridgetotalk.application.port.out.AgentQueueRepositoryPort;
-import com.renanresende.bridgetotalk.domain.Queue;
+import com.renanresende.bridgetotalk.domain.attendance.Queue;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import com.renanresende.bridgetotalk.domain.Agent;
+import com.renanresende.bridgetotalk.domain.people.Agent;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Repository

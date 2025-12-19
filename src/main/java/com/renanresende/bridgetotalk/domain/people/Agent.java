@@ -1,6 +1,6 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.people;
 
-import com.renanresende.bridgetotalk.domain.exception.BusinessException;
+import com.renanresende.bridgetotalk.domain.shared.exception.BusinessException;
 import lombok.Getter;
 
 import java.time.Instant;

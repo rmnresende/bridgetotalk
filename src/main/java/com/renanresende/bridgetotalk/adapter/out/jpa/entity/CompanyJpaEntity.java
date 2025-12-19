@@ -1,6 +1,6 @@
 package com.renanresende.bridgetotalk.adapter.out.jpa.entity;
 
-import com.renanresende.bridgetotalk.domain.CompanyStatus;
+import com.renanresende.bridgetotalk.domain.organization.CompanyStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

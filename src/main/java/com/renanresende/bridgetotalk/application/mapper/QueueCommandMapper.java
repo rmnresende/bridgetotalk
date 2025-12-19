@@ -3,7 +3,7 @@ package com.renanresende.bridgetotalk.application.mapper;
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.QueueJpaEntity;
 import com.renanresende.bridgetotalk.application.port.in.command.CreateQueueCommand;
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateQueueCommand;
-import com.renanresende.bridgetotalk.domain.Queue;
+import com.renanresende.bridgetotalk.domain.attendance.Queue;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 

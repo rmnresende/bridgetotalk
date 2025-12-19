@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.adapter.out.jpa.entity;
 
-import com.renanresende.bridgetotalk.domain.AgentRole;
-import com.renanresende.bridgetotalk.domain.AgentStatus;
+import com.renanresende.bridgetotalk.domain.people.AgentRole;
+import com.renanresende.bridgetotalk.domain.people.AgentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.attendance;
 
 public enum DistributionStrategy {
     LEAST_BUSY("Least Busy"),        // Direciona para o agente com o menor número de conversas ativas.

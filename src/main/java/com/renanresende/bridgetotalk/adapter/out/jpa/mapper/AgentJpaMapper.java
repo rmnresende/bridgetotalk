@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.adapter.out.jpa.mapper;
 
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.AgentJpaEntity;
-import com.renanresende.bridgetotalk.domain.Agent;
+import com.renanresende.bridgetotalk.domain.people.Agent;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

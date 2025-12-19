@@ -1,4 +1,4 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.attendance;
 
 public enum SenderType {
     CUSTOMER("Customer"),

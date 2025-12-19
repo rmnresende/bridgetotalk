@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.adapter.out.jpa;
 
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.AgentJpaEntity;
-import com.renanresende.bridgetotalk.domain.AgentStatus;
+import com.renanresende.bridgetotalk.domain.people.AgentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;

@@ -7,7 +7,7 @@ import com.renanresende.bridgetotalk.adapter.in.web.dto.company.UpdateCompanySta
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.CompanyDtoMapper;
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.CompanySettingsDtoMapper;
 import com.renanresende.bridgetotalk.application.port.in.ManageCompanyUseCase;
-import com.renanresende.bridgetotalk.domain.exception.BusinessException;
+import com.renanresende.bridgetotalk.domain.shared.exception.BusinessException;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

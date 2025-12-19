@@ -1,7 +1,7 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.organization;
 
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanySettingsCommand;
-import com.renanresende.bridgetotalk.domain.exception.BusinessException;
+import com.renanresende.bridgetotalk.domain.shared.exception.BusinessException;
 
 import java.time.Instant;
 

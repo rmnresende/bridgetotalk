@@ -1,4 +1,4 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.people;
 
 public enum AgentStatus {
     AVAILABLE("Available"),       // Pode receber novas conversas (rotação).

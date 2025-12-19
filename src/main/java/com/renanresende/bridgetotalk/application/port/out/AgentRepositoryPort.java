@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.application.port.out;
 
 import com.renanresende.bridgetotalk.adapter.in.web.dto.agent.AgentFilter;
-import com.renanresende.bridgetotalk.domain.Agent;
+import com.renanresende.bridgetotalk.domain.people.Agent;
 
 import java.util.List;
 import java.util.Optional;

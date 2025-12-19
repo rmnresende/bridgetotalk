@@ -1,4 +1,4 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.attendance;
 
 import java.time.Instant;
 import java.util.UUID;

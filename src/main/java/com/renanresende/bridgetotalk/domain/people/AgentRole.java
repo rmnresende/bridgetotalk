@@ -1,4 +1,4 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.people;
 
 public enum AgentRole {
     ADMIN("Admin"),       // Acesso total, pode gerenciar empresas, planos, e configurações globais.

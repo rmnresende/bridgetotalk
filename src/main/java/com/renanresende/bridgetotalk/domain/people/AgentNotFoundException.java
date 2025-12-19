@@ -1,8 +1,10 @@
-package com.renanresende.bridgetotalk.domain.exception;
+package com.renanresende.bridgetotalk.domain.people;
+
+import com.renanresende.bridgetotalk.domain.shared.exception.ResourceNotFoundException;
 
 import java.util.UUID;
 
-public class AgentNotFoundException extends ResourceNotFoundException{
+public class AgentNotFoundException extends ResourceNotFoundException {
 
     public AgentNotFoundException(UUID agentId) {
         super("Agent not found with id: " + agentId + "in the company");

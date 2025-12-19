@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.application.port.out;
 
-import com.renanresende.bridgetotalk.domain.Company;
-import com.renanresende.bridgetotalk.domain.CompanySettings;
+import com.renanresende.bridgetotalk.domain.organization.Company;
+import com.renanresende.bridgetotalk.domain.organization.CompanySettings;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

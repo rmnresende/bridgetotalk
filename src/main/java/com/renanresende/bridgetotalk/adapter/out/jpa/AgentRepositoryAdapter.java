@@ -5,7 +5,7 @@ import com.renanresende.bridgetotalk.adapter.out.jpa.mapper.AgentJpaMapper;
 import com.renanresende.bridgetotalk.adapter.out.jpa.spec.AgentSpecification;
 import com.renanresende.bridgetotalk.adapter.out.jpa.spec.SortParams;
 import com.renanresende.bridgetotalk.application.port.out.AgentRepositoryPort;
-import com.renanresende.bridgetotalk.domain.Agent;
+import com.renanresende.bridgetotalk.domain.people.Agent;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

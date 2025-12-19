@@ -1,7 +1,6 @@
 package com.renanresende.bridgetotalk.adapter.out.jpa;
 
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.QueueJpaEntity;
-import com.renanresende.bridgetotalk.domain.Queue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;

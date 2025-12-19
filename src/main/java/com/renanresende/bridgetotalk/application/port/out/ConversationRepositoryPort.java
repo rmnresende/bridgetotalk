@@ -1,6 +1,6 @@
 package com.renanresende.bridgetotalk.application.port.out;
 
-import com.renanresende.bridgetotalk.domain.Conversation;
+import com.renanresende.bridgetotalk.domain.attendance.Conversation;
 
 import java.util.List;
 import java.util.Optional;

@@ -2,9 +2,9 @@ package com.renanresende.bridgetotalk.application.port.in;
 
 import com.renanresende.bridgetotalk.adapter.in.web.dto.agent.AgentFilter;
 import com.renanresende.bridgetotalk.application.port.in.command.CreateAgentCommand;
-import com.renanresende.bridgetotalk.domain.Agent;
-import com.renanresende.bridgetotalk.domain.AgentStatus;
-import com.renanresende.bridgetotalk.domain.Queue;
+import com.renanresende.bridgetotalk.domain.people.Agent;
+import com.renanresende.bridgetotalk.domain.people.AgentStatus;
+import com.renanresende.bridgetotalk.domain.attendance.Queue;
 
 import java.util.List;
 import java.util.UUID;

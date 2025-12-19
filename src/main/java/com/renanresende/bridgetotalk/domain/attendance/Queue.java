@@ -1,6 +1,6 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.attendance;
 
-import com.renanresende.bridgetotalk.domain.exception.BusinessException;
+import com.renanresende.bridgetotalk.domain.shared.exception.BusinessException;
 import com.renanresende.bridgetotalk.domain.util.DomainStrings;
 import lombok.Getter;
 

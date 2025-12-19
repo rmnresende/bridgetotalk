@@ -5,7 +5,7 @@ import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.ResponseQueueDto;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.UpdateQueueDto;
 import com.renanresende.bridgetotalk.application.port.in.command.CreateQueueCommand;
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateQueueCommand;
-import com.renanresende.bridgetotalk.domain.Queue;
+import com.renanresende.bridgetotalk.domain.attendance.Queue;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 

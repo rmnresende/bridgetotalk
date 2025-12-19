@@ -10,7 +10,7 @@ import com.renanresende.bridgetotalk.adapter.in.web.mapper.CompanyDtoMapper;
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.QueueDtoMapper;
 import com.renanresende.bridgetotalk.adapter.in.web.validation.ValidEnum;
 import com.renanresende.bridgetotalk.application.service.ManagmentAgentService;
-import com.renanresende.bridgetotalk.domain.AgentStatus;
+import com.renanresende.bridgetotalk.domain.people.AgentStatus;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;

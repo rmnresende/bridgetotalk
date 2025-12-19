@@ -1,4 +1,4 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.attendance;
 
 public enum ConversationStatus {
     WAITING_IN_QUEUE("Waiting in Queue"), // A conversa chegou e está aguardando um agente.

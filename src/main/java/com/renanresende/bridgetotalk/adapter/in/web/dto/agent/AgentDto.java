@@ -2,8 +2,8 @@ package com.renanresende.bridgetotalk.adapter.in.web.dto.agent;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.renanresende.bridgetotalk.domain.AgentRole;
-import com.renanresende.bridgetotalk.domain.AgentStatus;
+import com.renanresende.bridgetotalk.domain.people.AgentRole;
+import com.renanresende.bridgetotalk.domain.people.AgentStatus;
 
 import java.time.Instant;
 import java.util.UUID;

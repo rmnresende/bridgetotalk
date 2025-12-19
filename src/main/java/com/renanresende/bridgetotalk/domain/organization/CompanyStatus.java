@@ -1,4 +1,4 @@
-package com.renanresende.bridgetotalk.domain;
+package com.renanresende.bridgetotalk.domain.organization;
 
 public enum CompanyStatus {
     ACTIVE,     // empresa ativa e operando normalmente

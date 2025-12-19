@@ -5,7 +5,7 @@ import com.renanresende.bridgetotalk.adapter.out.jpa.mapper.QueueJpaMapper;
 import com.renanresende.bridgetotalk.adapter.out.jpa.spec.QueueEspecification;
 import com.renanresende.bridgetotalk.adapter.out.jpa.spec.SortParams;
 import com.renanresende.bridgetotalk.application.port.out.QueueRepositoryPort;
-import com.renanresende.bridgetotalk.domain.Queue;
+import com.renanresende.bridgetotalk.domain.attendance.Queue;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

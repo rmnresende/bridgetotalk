@@ -10,9 +10,12 @@ import com.renanresende.bridgetotalk.application.port.out.AgentQueueRepositoryPo
 import com.renanresende.bridgetotalk.application.port.out.AgentRepositoryPort;
 import com.renanresende.bridgetotalk.application.port.out.CompanyRepositoryPort;
 import com.renanresende.bridgetotalk.application.port.out.QueueRepositoryPort;
-import com.renanresende.bridgetotalk.domain.Agent;
-import com.renanresende.bridgetotalk.domain.Queue;
-import com.renanresende.bridgetotalk.domain.exception.*;
+import com.renanresende.bridgetotalk.domain.attendance.QueueNotFoundException;
+import com.renanresende.bridgetotalk.domain.organization.CompanyNotFoundException;
+import com.renanresende.bridgetotalk.domain.people.Agent;
+import com.renanresende.bridgetotalk.domain.attendance.Queue;
+import com.renanresende.bridgetotalk.domain.people.AgentNotFoundException;
+import com.renanresende.bridgetotalk.domain.shared.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

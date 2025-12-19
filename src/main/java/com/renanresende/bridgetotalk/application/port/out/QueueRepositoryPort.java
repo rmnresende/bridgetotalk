@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.application.port.out;
 
 import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.QueueFilter;
-import com.renanresende.bridgetotalk.domain.Queue;
+import com.renanresende.bridgetotalk.domain.attendance.Queue;
 
 import java.time.Instant;
 import java.util.List;

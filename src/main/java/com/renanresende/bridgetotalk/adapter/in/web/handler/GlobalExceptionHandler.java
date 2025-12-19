@@ -2,9 +2,9 @@ package com.renanresende.bridgetotalk.adapter.in.web.handler;
 
 import com.renanresende.bridgetotalk.adapter.in.web.dto.ApiError;
 import com.renanresende.bridgetotalk.adapter.in.web.resolver.ConstraintMessageResolver;
-import com.renanresende.bridgetotalk.domain.exception.BusinessException;
-import com.renanresende.bridgetotalk.domain.exception.ResourceAlreadyExistsException;
-import com.renanresende.bridgetotalk.domain.exception.ResourceNotFoundException;
+import com.renanresende.bridgetotalk.domain.shared.exception.BusinessException;
+import com.renanresende.bridgetotalk.domain.shared.exception.ResourceAlreadyExistsException;
+import com.renanresende.bridgetotalk.domain.shared.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

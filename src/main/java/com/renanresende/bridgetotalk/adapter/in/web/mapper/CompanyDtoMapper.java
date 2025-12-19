@@ -4,9 +4,9 @@ import com.renanresende.bridgetotalk.adapter.in.web.dto.company.CompanySettingsU
 import com.renanresende.bridgetotalk.adapter.in.web.dto.company.CreateCompanyDto;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.company.ResponseCompanyDto;
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanyCommand;
-import com.renanresende.bridgetotalk.domain.Company;
-import com.renanresende.bridgetotalk.domain.CompanySettings;
-import com.renanresende.bridgetotalk.domain.exception.BusinessException;
+import com.renanresende.bridgetotalk.domain.organization.Company;
+import com.renanresende.bridgetotalk.domain.organization.CompanySettings;
+import com.renanresende.bridgetotalk.domain.shared.exception.BusinessException;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;

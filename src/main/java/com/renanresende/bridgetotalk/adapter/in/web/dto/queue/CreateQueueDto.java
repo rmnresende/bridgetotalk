@@ -1,6 +1,6 @@
 package com.renanresende.bridgetotalk.adapter.in.web.dto.queue;
 
-import com.renanresende.bridgetotalk.domain.DistributionStrategy;
+import com.renanresende.bridgetotalk.domain.attendance.DistributionStrategy;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;

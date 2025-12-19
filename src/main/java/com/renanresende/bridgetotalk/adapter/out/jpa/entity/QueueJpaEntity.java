@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -39,4 +41,11 @@ public class QueueJpaEntity {
 
     @Column(name = "deleted_at")
     private Instant deletedAt;
+
+    @OneToMany(
+            mappedBy = "queue",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<AgentQueueJpaEntity> agents = new HashSet<>();
 }

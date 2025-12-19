@@ -4,6 +4,7 @@ import com.renanresende.bridgetotalk.adapter.in.web.dto.agent.AgentFilter;
 import com.renanresende.bridgetotalk.application.port.in.command.CreateAgentCommand;
 import com.renanresende.bridgetotalk.domain.Agent;
 import com.renanresende.bridgetotalk.domain.AgentStatus;
+import com.renanresende.bridgetotalk.domain.Queue;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,5 +22,7 @@ public interface ManageAgentUseCase {
 //    void associateAgentToQueue(AssociateAgentToQueueCommand command);
 
     void deleteAgent(UUID id, UUID companyId);
+
+    List<Queue> findQueuesByAgentId(UUID agentId);
 
 }

@@ -34,12 +34,14 @@ public class QueueRepositoryAdapter implements QueueRepositoryPort {
 
     @Override
     public Optional<Queue> findByIdAndCompanyId(UUID id, UUID companyId) {
-        return queueRepository.findByIdAndCompanyId(id, companyId);
+         return queueRepository.findByIdAndCompanyId(id, companyId)
+                 .map(mapper::toDomain);
     }
 
     @Override
     public Optional<Queue> findByCompanyIdAndName(UUID companyId, String name) {
-        return queueRepository.findByCompanyIdAndName(companyId, name);
+        return queueRepository.findByCompanyIdAndName(companyId, name)
+                .map(mapper::toDomain);
     }
 
     @Override

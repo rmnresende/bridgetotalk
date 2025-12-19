@@ -1,12 +1,12 @@
 package com.renanresende.bridgetotalk.adapter.in.web;
 
 import com.renanresende.bridgetotalk.adapter.in.web.dto.QueryOptions;
-import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.CreateQueueDto;
-import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.QueueFilter;
-import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.ResponseQueueDto;
-import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.UpdateQueueDto;
+import com.renanresende.bridgetotalk.adapter.in.web.dto.agent.AgentDto;
+import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.*;
+import com.renanresende.bridgetotalk.adapter.in.web.mapper.AgentDtoMapper;
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.QueueDtoMapper;
 import com.renanresende.bridgetotalk.application.port.in.ManageQueueUseCase;
+import com.renanresende.bridgetotalk.application.port.in.command.LinkQueueAgentCommand;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +22,14 @@ public class QueueController {
 
     private final ManageQueueUseCase service;
     private final QueueDtoMapper mapper;
+    private final AgentDtoMapper agentMapper;
 
     public QueueController(ManageQueueUseCase service,
+                           AgentDtoMapper agentMapper,
                            QueueDtoMapper mapper) {
         this.service = service;
         this.mapper = mapper;
+        this.agentMapper = agentMapper;
     }
 
     @PostMapping
@@ -92,5 +95,37 @@ public class QueueController {
                 .toList();
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{queueId}/agents")
+    public ResponseEntity<List<AgentDto>> getAgentsFromQueue(@PathVariable UUID queueId){
+
+        var agentsResponse = service.findAgentsByQueueId(queueId)
+                .stream()
+                .map(agentMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(agentsResponse);
+    }
+
+    @PostMapping("{queueId}/agents/{agentId}/companies/{companyId}")
+    public ResponseEntity<Void> linkAgentToQueue(@PathVariable UUID queueId,
+                                                 @PathVariable UUID agentId,
+                                                 @PathVariable UUID companyId,
+                                                 @Valid @RequestBody QueueAgentLinkDto request){
+
+        var command = new LinkQueueAgentCommand(queueId, agentId, companyId, request.priority());
+        service.linkAgentToQueue(command);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("{queueId}/agents/{agentId}/companies/{companyId}")
+    public ResponseEntity<Void> unlinkAgentFromQueue(@PathVariable UUID queueId,
+                                                     @PathVariable UUID agentId,
+                                                     @PathVariable UUID companyId){
+
+        var command = new LinkQueueAgentCommand(queueId, agentId, companyId,null);
+        service.unlinkAgentFromQueue(command);
+        return ResponseEntity.noContent().build();
     }
 }

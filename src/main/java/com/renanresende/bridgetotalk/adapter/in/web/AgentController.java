@@ -4,14 +4,17 @@ import com.renanresende.bridgetotalk.adapter.in.web.dto.QueryOptions;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.agent.AgentDto;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.agent.AgentFilter;
 import com.renanresende.bridgetotalk.adapter.in.web.dto.agent.UpdateAgentDto;
+import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.ResponseQueueDto;
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.AgentDtoMapper;
 import com.renanresende.bridgetotalk.adapter.in.web.mapper.CompanyDtoMapper;
+import com.renanresende.bridgetotalk.adapter.in.web.mapper.QueueDtoMapper;
 import com.renanresende.bridgetotalk.adapter.in.web.validation.ValidEnum;
 import com.renanresende.bridgetotalk.application.service.ManagmentAgentService;
 import com.renanresende.bridgetotalk.domain.AgentStatus;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,17 +25,13 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/agents")
+@RequiredArgsConstructor
 public class AgentController {
 
     private final ManagmentAgentService service;
     private final AgentDtoMapper mapper;
+    private final QueueDtoMapper queueDtoMapper;
     private final CompanyDtoMapper companyDtoMapper;
-
-    public AgentController(ManagmentAgentService agentService, AgentDtoMapper mapper, CompanyDtoMapper companyDtoMapper) {
-        this.service = agentService;
-        this.mapper = mapper;
-        this.companyDtoMapper = companyDtoMapper;
-    }
 
     @PostMapping
     public ResponseEntity<AgentDto> create(
@@ -114,5 +113,16 @@ public class AgentController {
     public ResponseEntity<Void> deleteAgent(@PathVariable UUID agentId, @PathVariable UUID companyId) {
         service.deleteAgent(agentId, companyId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{agentId}/queues")
+    public ResponseEntity<List<ResponseQueueDto>> getQueuesByAgent(@PathVariable UUID agentId){
+
+        var responseQueues = service.findQueuesByAgentId(agentId)
+                .stream()
+                .map(queueDtoMapper::toResponseDto)
+                .toList();
+
+        return ResponseEntity.ok(responseQueues);
     }
 }

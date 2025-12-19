@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -47,4 +49,11 @@ public class AgentJpaEntity {
 
     @Column(name = "deleted_at")
     private Instant deletedAt;
+
+    @OneToMany(
+            mappedBy = "agent",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<AgentQueueJpaEntity> queues = new HashSet<>();
 }

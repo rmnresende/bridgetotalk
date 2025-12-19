@@ -107,7 +107,7 @@ public class GlobalExceptionHandler {
         var error = new ApiError(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "INTERNAL_ERROR",
-                ex.getMessage(),
+               "An unexpected error occurred",
                 request.getRequestURI(),
                 Instant.now()
         );

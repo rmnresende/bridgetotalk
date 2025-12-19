@@ -1,0 +1,18 @@
+package com.renanresende.bridgetotalk.application.port.out;
+
+import com.renanresende.bridgetotalk.domain.Agent;
+import com.renanresende.bridgetotalk.domain.Queue;
+
+import java.util.List;
+import java.util.UUID;
+
+public interface AgentQueueRepositoryPort {
+
+    void linkAgentToQueue(Agent agent, Queue queue, int priority);
+
+    void unlinkAgentFromQueue(UUID agentId, UUID queueId);
+
+    List<Queue> findQueuesByAgentId(UUID agentId);
+
+    List<Agent> findAgentsByQueueId(UUID queueId);
+}

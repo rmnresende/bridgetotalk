@@ -18,9 +18,9 @@ public interface SpringDataQueueRepository extends JpaRepository<QueueJpaEntity,
     @Query("SELECT q FROM QueueJpaEntity q WHERE q.companyId = :companyId and q.deletedAt is null")
     List<QueueJpaEntity> findAllActiveQueuesByCompanyId(UUID companyId);
 
-    Optional<Queue> findByCompanyIdAndName(UUID companyId, String name);
+    Optional<QueueJpaEntity> findByCompanyIdAndName(UUID companyId, String name);
 
-    Optional<Queue> findByIdAndCompanyId(UUID id, UUID companyId);
+    Optional<QueueJpaEntity> findByIdAndCompanyId(UUID id, UUID companyId);
 
     @Modifying
     @Query("UPDATE QueueJpaEntity q SET q.deletedAt = :deletedAt WHERE q.id = :id")

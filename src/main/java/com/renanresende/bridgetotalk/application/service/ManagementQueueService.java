@@ -12,10 +12,7 @@ import com.renanresende.bridgetotalk.application.port.out.CompanyRepositoryPort;
 import com.renanresende.bridgetotalk.application.port.out.QueueRepositoryPort;
 import com.renanresende.bridgetotalk.domain.Agent;
 import com.renanresende.bridgetotalk.domain.Queue;
-import com.renanresende.bridgetotalk.domain.exception.CompanyNotFoundException;
-import com.renanresende.bridgetotalk.domain.exception.QueueNotFoundException;
-import com.renanresende.bridgetotalk.domain.exception.ResourceAlreadyExistsException;
-import com.renanresende.bridgetotalk.domain.exception.ResourceNotFoundException;
+import com.renanresende.bridgetotalk.domain.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -78,29 +75,19 @@ public class ManagementQueueService implements ManageQueueUseCase {
     @Override
     public void linkAgentToQueue(LinkQueueAgentCommand linkQueueAgentCommand) {
 
-        var existingQueue = queueRepository.findByIdAndCompanyId(linkQueueAgentCommand.queueId(),
-                                                                 linkQueueAgentCommand.companyId()
-        ).orElseThrow(() -> new QueueNotFoundException(linkQueueAgentCommand.queueId()));
+        validateIfBelongSameCompany(linkQueueAgentCommand.agentId(), linkQueueAgentCommand.queueId());
 
-        var existingAgent = agentRepository.findActiveAgentByIdAndCompanyId(linkQueueAgentCommand.agentId(),
-                                                                            linkQueueAgentCommand.companyId()
-        ).orElseThrow(() -> new ResourceNotFoundException("Agent not found"));
-
-        agentQueueRepository.linkAgentToQueue(existingAgent, existingQueue, linkQueueAgentCommand.priority());
+        agentQueueRepository.linkAgentToQueue(linkQueueAgentCommand.agentId(),
+                                              linkQueueAgentCommand.queueId(),
+                                              linkQueueAgentCommand.priority()
+        );
     }
 
     @Override
-    public void unlinkAgentFromQueue(LinkQueueAgentCommand linkQueueAgentCommand) {
+    public void unlinkAgentFromQueue(UUID agentId, UUID queueId) {
 
-        var existingQueue = queueRepository.findByIdAndCompanyId(linkQueueAgentCommand.queueId(),
-                linkQueueAgentCommand.companyId()
-        ).orElseThrow(() -> new QueueNotFoundException(linkQueueAgentCommand.queueId()));
-
-        var existingAgent = agentRepository.findActiveAgentByIdAndCompanyId(linkQueueAgentCommand.agentId(),
-                linkQueueAgentCommand.companyId()
-        ).orElseThrow(() -> new ResourceNotFoundException("Agent not found"));
-
-        agentQueueRepository.unlinkAgentFromQueue(existingAgent.getId(), existingQueue.getId());
+        validateIfBelongSameCompany(agentId, queueId);
+        agentQueueRepository.unlinkAgentFromQueue(agentId, queueId);
     }
 
     private void validateQueuePreConditions(String name, UUID companyId) {
@@ -109,6 +96,18 @@ public class ManagementQueueService implements ManageQueueUseCase {
 
         if (existisQueueInCompanyWithSameName(name, companyId)) {
             throw new ResourceAlreadyExistsException("Already exists a queue with same name in this company");
+        }
+    }
+
+    private void validateIfBelongSameCompany(UUID agentId, UUID queueId) {
+        var existingQueue = queueRepository.findById(queueId)
+                .orElseThrow(() -> new QueueNotFoundException(queueId));
+
+        var existingAgent = agentRepository.findById(agentId)
+                .orElseThrow(() -> new AgentNotFoundException(agentId));
+
+        if (!existingAgent.getCompanyId().equals(existingQueue.getCompanyId())) {
+            throw new BusinessException("Agent and Queue must belong to the same company");
         }
     }
 

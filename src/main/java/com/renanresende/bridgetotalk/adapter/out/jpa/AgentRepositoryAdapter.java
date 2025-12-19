@@ -33,6 +33,12 @@ public class AgentRepositoryAdapter implements AgentRepositoryPort {
     }
 
     @Override
+    public Optional<Agent> findById(UUID id) {
+        return repository.findById(id)
+                         .map(mapper::toDomain);
+    }
+
+    @Override
     public Optional<Agent> findActiveAgentByIdAndCompanyId(UUID id, UUID companyId) {
         return repository.findActiveAgentByIdAndCompanyId(id, companyId)
                 .map(mapper::toDomain);

@@ -11,6 +11,8 @@ public interface AgentRepositoryPort {
 
     Agent save(Agent agent);
 
+    Optional<Agent> findById(UUID id);
+
     Optional<Agent> findActiveAgentByIdAndCompanyId(UUID id, UUID companyId);
 
     Optional<Agent> findActiveAgentByCompanyIdAndEmail(UUID companyId, String email);

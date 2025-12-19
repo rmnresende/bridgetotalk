@@ -1,11 +1,15 @@
 package com.renanresende.bridgetotalk.adapter.out.jpa;
 
+import com.renanresende.bridgetotalk.adapter.out.jpa.entity.AgentJpaEntity;
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.AgentQueueId;
 import com.renanresende.bridgetotalk.adapter.out.jpa.entity.AgentQueueJpaEntity;
+import com.renanresende.bridgetotalk.adapter.out.jpa.entity.QueueJpaEntity;
 import com.renanresende.bridgetotalk.adapter.out.jpa.mapper.AgentJpaMapper;
 import com.renanresende.bridgetotalk.adapter.out.jpa.mapper.QueueJpaMapper;
 import com.renanresende.bridgetotalk.application.port.out.AgentQueueRepositoryPort;
 import com.renanresende.bridgetotalk.domain.Queue;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import com.renanresende.bridgetotalk.domain.Agent;
 
@@ -16,6 +20,10 @@ import java.util.UUID;
 
 @Repository
 public class AgentQueueRepositoryAdapter implements AgentQueueRepositoryPort {
+
+    @PersistenceContext
+    private EntityManager em;
+
 
     private final SpringDataAgentQueueRepository repository;
     private final AgentJpaMapper agentMapper;
@@ -46,15 +54,16 @@ public class AgentQueueRepositoryAdapter implements AgentQueueRepositoryPort {
     }
 
     @Override
-    public void linkAgentToQueue(Agent agent, Queue queue, int priority) {
+    public void linkAgentToQueue(UUID agentId, UUID queueId, int priority) {
 
-        var agentEntity = agentMapper.toEntity(agent);
-        var queueEntity = queueMapper.toEntity(queue);
+        var agentRef = em.getReference(AgentJpaEntity.class, agentId);
+        var queueRef = em.getReference(QueueJpaEntity.class, queueId);
+
 
         var entity = new AgentQueueJpaEntity(
-                new AgentQueueId(agent.getId(), queue.getId()),
-                agentEntity, // set via reference
-                queueEntity,
+                new AgentQueueId(agentId, queueId),
+                agentRef, // set via reference
+                queueRef,
                 priority,
                 Instant.now()
         );

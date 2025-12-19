@@ -33,40 +33,42 @@ public class QueueRepositoryAdapter implements QueueRepositoryPort {
     }
 
     @Override
+    public Optional<Queue> findById(UUID id) {
+        return queueRepository.findById(id)
+                              .map(mapper::toDomain);
+    }
+
+    @Override
     public Optional<Queue> findByIdAndCompanyId(UUID id, UUID companyId) {
          return queueRepository.findByIdAndCompanyId(id, companyId)
-                 .map(mapper::toDomain);
+                               .map(mapper::toDomain);
     }
 
     @Override
     public Optional<Queue> findByCompanyIdAndName(UUID companyId, String name) {
         return queueRepository.findByCompanyIdAndName(companyId, name)
-                .map(mapper::toDomain);
+                              .map(mapper::toDomain);
     }
 
     @Override
     public List<Queue> findAllActiveQueuesByCompanyId(UUID companyId) {
         return  queueRepository.findAllActiveQueuesByCompanyId(companyId)
-                .stream()
-                .map(mapper::toDomain)
-                .toList();
+                               .stream()
+                               .map(mapper::toDomain)
+                               .toList();
     }
 
     @Override
     public List<Queue> filterQueuesByCompanyId(QueueFilter queueFilter, UUID companyId) {
-
-        if (queueFilter.queryOptions().sortBy().isPresent()) {
-
-        }
 
         var especification = QueueEspecification.withOptionalFiltersByCompany(queueFilter, companyId);
         var sortField = SortParams.validateFieldToSort(queueFilter.queryOptions().sortBy().orElse(null), "queue");
         var sortDirection = SortParams.validateDirection(queueFilter.queryOptions().sortDirection().orElse(null));
 
         return queueRepository.findAll(especification, Sort.by(sortDirection, sortField))
-                .stream()
-                .map(mapper::toDomain)
-                .toList();
+                              .stream()
+                              .map(mapper::toDomain)
+                              .toList();
     }
 
     @Transactional

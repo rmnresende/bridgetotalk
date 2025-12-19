@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface AgentQueueRepositoryPort {
 
-    void linkAgentToQueue(Agent agent, Queue queue, int priority);
+    void linkAgentToQueue(UUID agentId, UUID queueId, int priority);
 
     void unlinkAgentFromQueue(UUID agentId, UUID queueId);
 

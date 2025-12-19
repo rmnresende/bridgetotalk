@@ -12,6 +12,8 @@ public interface QueueRepositoryPort {
 
     Queue save(Queue queue);
 
+    Optional<Queue> findById(UUID id);
+
     Optional<Queue> findByIdAndCompanyId(UUID id, UUID companyId);
 
     Optional<Queue> findByCompanyIdAndName(UUID companyId, String name);

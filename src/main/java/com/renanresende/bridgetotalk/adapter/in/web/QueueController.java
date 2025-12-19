@@ -108,24 +108,20 @@ public class QueueController {
         return ResponseEntity.ok(agentsResponse);
     }
 
-    @PostMapping("{queueId}/agents/{agentId}/companies/{companyId}")
+    @PostMapping("{queueId}/agents/{agentId}")
     public ResponseEntity<Void> linkAgentToQueue(@PathVariable UUID queueId,
                                                  @PathVariable UUID agentId,
-                                                 @PathVariable UUID companyId,
                                                  @Valid @RequestBody QueueAgentLinkDto request){
 
-        var command = new LinkQueueAgentCommand(queueId, agentId, companyId, request.priority());
+        var command = new LinkQueueAgentCommand(queueId, agentId, null, request.priority());
         service.linkAgentToQueue(command);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("{queueId}/agents/{agentId}/companies/{companyId}")
     public ResponseEntity<Void> unlinkAgentFromQueue(@PathVariable UUID queueId,
-                                                     @PathVariable UUID agentId,
-                                                     @PathVariable UUID companyId){
-
-        var command = new LinkQueueAgentCommand(queueId, agentId, companyId,null);
-        service.unlinkAgentFromQueue(command);
+                                                     @PathVariable UUID agentId){
+        service.unlinkAgentFromQueue(agentId, queueId);
         return ResponseEntity.noContent().build();
     }
 }

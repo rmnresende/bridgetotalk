@@ -27,5 +27,5 @@ public interface ManageQueueUseCase {
 
     void linkAgentToQueue(LinkQueueAgentCommand linkQueueAgentCommand);
 
-    void unlinkAgentFromQueue(LinkQueueAgentCommand linkQueueAgentCommand);
+    void unlinkAgentFromQueue(UUID agentId, UUID queueId);
 }

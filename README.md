@@ -49,21 +49,21 @@ Unlike simple CRUD examples, this codebase shows:
 ## How the architecture is organized?
 
 ┌────────────────────────────┐                                                                                          
-│        Web (REST)          │                                                                                          
-│   Controllers / DTOs       │                                                                                          
+│        Web (REST)          |                                                                                                                                                           
+│   Controllers / DTOs       │                                                                                                                                                                              
 └──────────────┬─────────────┘                                                                                          
-               │                                                                                                        
-         Inbound Ports                                                                                                    
-               │                                                                                                        
+               │                                                                                                                                                                                                  
+         Inbound Ports                                                                                                                                                                                            
+               │                                                                                                                                                                                                 
 ┌──────────────▼─────────────┐                                                                                          
-│     Application Layer      │                                                                                          
-│   Use Cases / Services     │                                                                                          
+│     Application Layer      │                                                                                                                                                                                    
+│   Use Cases / Services     │                                                                                                                                                                                    
 └──────────────┬─────────────┘                                                                                         
-        Outbound Ports                                                                                                   
-               │                                                                                                       
+        Outbound Ports                                                                                                                                                                                             
+               │                                                                                                                                                                                                 
 ┌──────────────▼─────────────┐                                                                                         
-│    Infrastructure Layer    │                                                                                         
-│   JPA / External Services  │                                                                                         
+│    Infrastructure Layer    │                                                                                                                                                                                   
+│   JPA / External Services  │                                                                                                                                                                                   
 └────────────────────────────┘                                                                                         
                                                                                                                        
 ```mermaid

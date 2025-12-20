@@ -205,9 +205,10 @@ See [docs/api.md](./docs/api.md) for more details.
 
 ## Roadmap
 
-- [Agents skill](./docs/design-notes/skill-based-routing.md) to allows conversations to be handled by 
+
+- [Agents skill](./docs/design-notes/business/skill-based-routing.md) to allows conversations to be handled by 
 agents who are better prepared to resolve specific types of issues;
-- Integration with popular messaging platforms (Facebook Message, Intagran, Telegram, WhatsApp, etc.);
+- Integration with popular messaging platforms (Facebook Message, Instagran, Telegram, WhatsApp, etc.);
 - Kafka/RabbitMQ/AWS SQS integration for message events;
 - Redis cache for active queues;
 

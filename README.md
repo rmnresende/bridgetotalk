@@ -4,6 +4,10 @@
 [![Java Version](https://img.shields.io/badge/Java-25-blue.svg)](https://www.oracle.com/java/technologies/javase/25-downloads.html)
 [![Spring Boot Version](https://img.shields.io/badge/Spring_Boot-4.x-green.svg)](https://spring.io/projects/spring-boot)
 [![Database](https://img.shields.io/badge/Database-PostgreSQL-blue.svg)](https://www.postgresql.org/)
+[![Hexagonal Architecture](https://img.shields.io/badge/Architecture-Hexagonal%20(Ports%20%26%20Adapters)-orange)](docs/architecture/2-hexagonal-architecture.md)
+[![Domain-Driven Design](https://img.shields.io/badge/Design-DDD%20(Strategic)-blueviolet)](docs/architecture/3-domain-structure.md)
+[![Clean Code](https://img.shields.io/badge/Code-Clean%20%26%20SOLID-brightgreen)]()
+[![Multi-Tenant](https://img.shields.io/badge/Tenancy-Multi--Tenant%20SaaS-lightblue)]()
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
 ## 🌟 Overview
@@ -37,7 +41,8 @@ This project is ideal for:
 This isn't just another CRUD. It's a laboratory for high-level software engineering:
 
 * **Rich Domain Model:** No "Anemic Models" here. Business logic (like queue availability and schedule overlaps) is encapsulated within Domain Entities and Value Objects.
-* **Hexagonal Architecture:** Strict separation between business rules and infrastructure. Try swapping the database or the web framework; the domain won't care.
+* **Hexagonal Architecture:** Strict separation between business rules and infrastructure. Try swapping the database or the web framework, 
+the domain won't care, because he domain has zero dependencies on Spring or JPA.
 * **Strategic DDD:** Clear boundaries between Bounded Contexts (`attendance`, `organization`, `people`).
 * **Clean Code & SOLID:** High cohesion, low coupling, and meaningful naming.
 * **Value Objects:** Extensive use of Java Records to represent domain concepts like `TimeRange` and `WeeklySchedule`.
@@ -109,8 +114,8 @@ flowchart LR
 If you want to understand the architecture, start here:
 
 1. domain/organization/Company.java, CompanySettings.java – core domain entity
-2. domain/attendance/Queue.java, Conversation.java, Messsage.java - core domain entities to main flow of application
-3. domain/people/Agent.java, Customer.java - core domain entities that represents the actors in main flow of application
+2. domain/attendance/Queue.java, Conversation.java, Message.java - core domain entities to main flow of application
+3. domain/people/Agent.java, Customer.java - core domain entities that represent the actors in main flow of application
 4. application/port/in – use case definitions
 5. application/service – business logic orchestration
 6. adapter/out/jpa/* – persistence adapters
@@ -197,6 +202,15 @@ a standard practice for secure multi-tenant SaaS.
 
 A collection of real examples to help quickly test the API.
 See [docs/api.md](./docs/api.md) for more details.
+
+## Roadmap
+
+- [Agents skill](./docs/design-notes/skill-based-routing.md) to allows conversations to be handled by 
+agents who are better prepared to resolve specific types of issues;
+- Integration with popular messaging platforms (Facebook Message, Intagran, Telegram, WhatsApp, etc.);
+- Kafka/RabbitMQ/AWS SQS integration for message events;
+- Redis cache for active queues;
+
 
 ## ⭐ Contributing & Feedback
 

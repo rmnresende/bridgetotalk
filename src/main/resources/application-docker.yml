@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/bridgetotalk
+    username: bridgetotalk
+    password: bridgetotalk
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+management:
+  server:
+    port: 8080 # opcional: pode separar porta se quiser (ex: 8081)
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - loggers
+          - env
+          - beans
+          - mappings
+          - prometheus
+
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: BridgeToTalk API (Local)
+    version: 0.0.1-SNAPSHOT

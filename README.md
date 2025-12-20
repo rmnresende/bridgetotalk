@@ -134,34 +134,58 @@ If you want to understand the architecture, start here:
 * PostgreSQL Server (Local or Docker)
 
 
-### 🚀 Getting Started: Running the Project with Docker Compose
 
-#### Start the Infrastructure
-   The project uses PostgreSQL as its primary database. You can spin it up instantly using Docker Compose:
+### 🚀 Running with Docker (Recommended)
 
-```
-docker-compose up -d --build
-```
-**Note:** This will start a PostgreSQL instance on port 5432 with the database bridgetotalk already created.
+You can run the entire application **without installing Java or Maven**.
 
-#### Run the Application
-   You can start the Spring Boot application using the Maven wrapper included in the repository.
+### Requirements
+- Docker
+- Docker Compose
 
-Make sure you have Java 25 installed and run the following command:
+### Start the application
 
-```
-./mvnw spring-boot:run
+```bash
+docker compose up --build
 ```
 
-The application will start, and Flyway will automatically run the migrations to create the necessary tables.
+This will start:
+
+- PostgreSQL database
+- Spring Boot API (Java 25, Spring Boot 4)
+
+  The application will be available at:
+
+
+```
+http://localhost:8080
+```
 
 #### Verify Health Status
-   Before running the cURL examples, verify if the application is healthy and the database connection is established:
 
 ```
 curl --location 'http://localhost:8080/api/v1/actuator/health'
 ```
-Expected response: {"status":"UP"}
+Expected response: 
+
+```json
+{"status":"UP"}
+```
+
+### 🧑‍💻 Running Locally (Java 25)
+
+If you prefer to run the application without Docker:
+
+### Requirements
+- Java 25
+- Maven 3.8+
+- PostgreSQL
+
+### Run
+
+```bash
+./mvnw spring-boot:run
+```
 
 ## 🧪 Testing the API
 Once the application is running, you can use the cURL examples provided below to interact with the system.

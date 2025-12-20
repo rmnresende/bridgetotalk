@@ -205,6 +205,7 @@ See [docs/api.md](./docs/api.md) for more details.
 
 ## Roadmap
 
+
 - [Agents skill](./docs/design-notes/business/skill-based-routing.md) to allows conversations to be handled by 
 agents who are better prepared to resolve specific types of issues;
 - Integration with popular messaging platforms (Facebook Message, Instagran, Telegram, WhatsApp, etc.);

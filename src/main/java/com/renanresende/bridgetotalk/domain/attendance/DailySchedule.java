@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DailySchedule {
 
-    private final List<TimeRange> ranges;
+    private List<TimeRange> ranges;
 
     public DailySchedule(List<TimeRange> ranges) {
 
@@ -44,5 +44,9 @@ public class DailySchedule {
      */
     public boolean isWithin(LocalTime time) {
         return ranges.stream().anyMatch(r -> r.contains(time));
+    }
+
+    public List<TimeRange> getRanges() {
+        return List.copyOf(ranges); //lista imutavel para manter o encapsulamento
     }
 }

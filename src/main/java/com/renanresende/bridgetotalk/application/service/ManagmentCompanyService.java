@@ -5,9 +5,9 @@ import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanyCo
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateCompanySettingsCommand;
 import com.renanresende.bridgetotalk.application.port.out.CompanyRepositoryPort;
 import com.renanresende.bridgetotalk.domain.organization.Company;
+import com.renanresende.bridgetotalk.domain.organization.CompanyNotFoundException;
 import com.renanresende.bridgetotalk.domain.organization.CompanySettings;
 import com.renanresende.bridgetotalk.domain.organization.CompanyStatus;
-import com.renanresende.bridgetotalk.domain.organization.CompanyNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -52,10 +52,15 @@ public class QueueRepositoryAdapter implements QueueRepositoryPort {
 
     @Override
     public List<Queue> findAllActiveQueuesByCompanyId(UUID companyId) {
-        return  queueRepository.findAllActiveQueuesByCompanyId(companyId)
-                               .stream()
-                               .map(mapper::toDomain)
-                               .toList();
+        try {
+            return  queueRepository.findAllActiveQueuesByCompanyId(companyId)
+                    .stream()
+                    .map(mapper::toDomain)
+                    .toList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
     }
 
     @Override

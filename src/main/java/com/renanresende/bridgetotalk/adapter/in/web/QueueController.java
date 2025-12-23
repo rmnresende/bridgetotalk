@@ -40,18 +40,17 @@ public class QueueController {
 
         var uri = URI.create(String.format("/api/v1/queue/%s/company/%s", domain.getId(), domain.getCompanyId()));
 
-        return ResponseEntity
-                .created(uri)
-                .body(mapper.toResponseDto(domain));
+        return ResponseEntity.created(uri)
+                             .body(mapper.toResponseDto(domain));
     }
 
     @GetMapping("/active/company/{companyId}")
     public ResponseEntity<List<ResponseQueueDto>> listQueuesByCompany(@PathVariable UUID companyId){
 
         var response = service.getAllActiveQueuesFromCompany(companyId)
-                .stream()
-                .map(mapper::toResponseDto)
-                .toList();
+                              .stream()
+                              .map(mapper::toResponseDto)
+                              .toList();
 
         return ResponseEntity.ok(response);
     }
@@ -76,10 +75,10 @@ public class QueueController {
 
     @GetMapping("/company/{companyId}")
     public ResponseEntity<List<ResponseQueueDto>> filterQueuesByCompany(@PathVariable UUID companyId,
-                                                                @RequestParam(required = false) String name,
-                                                                @RequestParam(required = false) boolean inactive,
-                                                                @RequestParam(required = false) String sortBy,
-                                                                @RequestParam(required = false) String sortDirection){
+                                                                        @RequestParam(required = false) String name,
+                                                                        @RequestParam(required = false) boolean inactive,
+                                                                        @RequestParam(required = false) String sortBy,
+                                                                        @RequestParam(required = false) String sortDirection){
         var filter = new QueueFilter(
                 Optional.ofNullable(name),
                 new QueryOptions(
@@ -90,9 +89,9 @@ public class QueueController {
         );
 
         var response = service.filterQueuesByCompanyId(filter, companyId)
-                .stream()
-                .map(mapper::toResponseDto)
-                .toList();
+                              .stream()
+                              .map(mapper::toResponseDto)
+                              .toList();
 
         return ResponseEntity.ok(response);
     }
@@ -101,9 +100,9 @@ public class QueueController {
     public ResponseEntity<List<AgentDto>> getAgentsFromQueue(@PathVariable UUID queueId){
 
         var agentsResponse = service.findAgentsByQueueId(queueId)
-                .stream()
-                .map(agentMapper::toDto)
-                .toList();
+                                    .stream()
+                                    .map(agentMapper::toDto)
+                                    .toList();
 
         return ResponseEntity.ok(agentsResponse);
     }
@@ -113,7 +112,7 @@ public class QueueController {
                                                  @PathVariable UUID agentId,
                                                  @Valid @RequestBody QueueAgentLinkDto request){
 
-        var command = new LinkQueueAgentCommand(queueId, agentId, null, request.priority());
+        var command = new LinkQueueAgentCommand(queueId, agentId, request.priority());
         service.linkAgentToQueue(command);
         return ResponseEntity.noContent().build();
     }
@@ -122,6 +121,7 @@ public class QueueController {
     public ResponseEntity<Void> unlinkAgentFromQueue(@PathVariable UUID queueId,
                                                      @PathVariable UUID agentId){
         service.unlinkAgentFromQueue(agentId, queueId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent()
+                             .build();
     }
 }

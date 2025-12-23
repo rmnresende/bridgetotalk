@@ -6,10 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @ConfigurationPropertiesScan("com.renanresende.bridgetotalk")
 @SpringBootApplication
-public class TalkbridgeApplication {
+public class BridgeToTalkApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TalkbridgeApplication.class, args);
+		SpringApplication.run(BridgeToTalkApplication.class, args);
 	}
 
 }

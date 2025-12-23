@@ -2,10 +2,7 @@ package com.renanresende.bridgetotalk.adapter.out.jpa.entity;
 
 import com.renanresende.bridgetotalk.domain.attendance.DistributionStrategy;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -18,6 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class QueueJpaEntity {
 
     @Id
@@ -48,4 +46,12 @@ public class QueueJpaEntity {
             orphanRemoval = true
     )
     private Set<AgentQueueJpaEntity> agents = new HashSet<>();
+
+    @OneToOne(
+            mappedBy = "queue",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private QueueSettingsJpaEntity settings;
 }

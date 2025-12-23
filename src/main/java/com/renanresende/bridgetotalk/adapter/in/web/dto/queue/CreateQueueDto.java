@@ -14,6 +14,8 @@ public record CreateQueueDto(
          String name,
 
          @NotNull
-         DistributionStrategy distributionStrategy
+         DistributionStrategy distributionStrategy,
+
+         QueueSettingsDto settings
 ) {
 }

@@ -8,10 +8,10 @@ import com.renanresende.bridgetotalk.adapter.out.jpa.mapper.AgentJpaMapper;
 import com.renanresende.bridgetotalk.adapter.out.jpa.mapper.QueueJpaMapper;
 import com.renanresende.bridgetotalk.application.port.out.AgentQueueRepositoryPort;
 import com.renanresende.bridgetotalk.domain.attendance.Queue;
+import com.renanresende.bridgetotalk.domain.people.Agent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import com.renanresende.bridgetotalk.domain.people.Agent;
 
 import java.time.Instant;
 import java.util.List;
@@ -36,7 +36,7 @@ public class AgentQueueRepositoryAdapter implements AgentQueueRepositoryPort {
 
     @Override
     public List<Queue> findQueuesByAgentId(UUID agentId) {
-        return repository.findByAgent_Id(agentId)
+        return repository.findByAgentId(agentId)
                 .stream()
                 .map(AgentQueueJpaEntity::getQueue)
                 .map(queueMapper::toDomain)
@@ -45,7 +45,7 @@ public class AgentQueueRepositoryAdapter implements AgentQueueRepositoryPort {
 
     @Override
     public List<Agent> findAgentsByQueueId(UUID queueId) {
-        return repository.findByQueue_Id(queueId)
+        return repository.findByQueueId(queueId)
                 .stream()
                 .map(AgentQueueJpaEntity::getAgent)
                 .map(agentMapper::toDomain)

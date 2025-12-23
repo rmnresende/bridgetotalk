@@ -10,12 +10,13 @@ import com.renanresende.bridgetotalk.application.port.out.AgentQueueRepositoryPo
 import com.renanresende.bridgetotalk.application.port.out.AgentRepositoryPort;
 import com.renanresende.bridgetotalk.application.port.out.CompanyRepositoryPort;
 import com.renanresende.bridgetotalk.application.port.out.QueueRepositoryPort;
+import com.renanresende.bridgetotalk.domain.attendance.Queue;
 import com.renanresende.bridgetotalk.domain.attendance.QueueNotFoundException;
 import com.renanresende.bridgetotalk.domain.organization.CompanyNotFoundException;
 import com.renanresende.bridgetotalk.domain.people.Agent;
-import com.renanresende.bridgetotalk.domain.attendance.Queue;
 import com.renanresende.bridgetotalk.domain.people.AgentNotFoundException;
-import com.renanresende.bridgetotalk.domain.shared.exception.*;
+import com.renanresende.bridgetotalk.domain.shared.exception.BusinessException;
+import com.renanresende.bridgetotalk.domain.shared.exception.ResourceAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -59,13 +60,14 @@ public class ManagementQueueService implements ManageQueueUseCase {
 
     @Override
     public List<Queue> getAllActiveQueuesFromCompany(UUID companyId) {
-        return queueRepository.findAllActiveQueuesByCompanyId(companyId);
+        var resposnse = queueRepository.findAllActiveQueuesByCompanyId(companyId);
+        return resposnse;
     }
 
     @Override
     public void deleteQueue(UUID queueId, UUID companyId) {
         queueRepository.findByIdAndCompanyId(queueId, companyId)
-                .orElseThrow(() -> new QueueNotFoundException(queueId));
+                       .orElseThrow(() -> new QueueNotFoundException(queueId));
 
         queueRepository.deleteQueue(queueId, Instant.now());
     }
@@ -104,10 +106,10 @@ public class ManagementQueueService implements ManageQueueUseCase {
 
     private void validatePreConditionsToLink(UUID agentId, UUID queueId) {
         var existingQueue = queueRepository.findById(queueId)
-                .orElseThrow(() -> new QueueNotFoundException(queueId));
+                                           .orElseThrow(() -> new QueueNotFoundException(queueId));
 
         var existingAgent = agentRepository.findById(agentId)
-                .orElseThrow(() -> new AgentNotFoundException(agentId));
+                                           .orElseThrow(() -> new AgentNotFoundException(agentId));
 
         if(existingAgent.isNotAvailable()){
             throw new BusinessException("Agent must be available to be linked to a queue");
@@ -120,10 +122,10 @@ public class ManagementQueueService implements ManageQueueUseCase {
 
     private void validatePreConditionsToUnlink(UUID agentId, UUID queueId) {
         var existingQueue = queueRepository.findById(queueId)
-                .orElseThrow(() -> new QueueNotFoundException(queueId));
+                                           .orElseThrow(() -> new QueueNotFoundException(queueId));
 
         var existingAgent = agentRepository.findById(agentId)
-                .orElseThrow(() -> new AgentNotFoundException(agentId));
+                                           .orElseThrow(() -> new AgentNotFoundException(agentId));
 
         if (!existingAgent.getCompanyId().equals(existingQueue.getCompanyId())) {
             throw new BusinessException("Agent and Queue must belong to the same company");

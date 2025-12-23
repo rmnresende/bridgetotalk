@@ -1,7 +1,7 @@
 package com.renanresende.bridgetotalk.application.port.out;
 
-import com.renanresende.bridgetotalk.domain.people.Agent;
 import com.renanresende.bridgetotalk.domain.attendance.Queue;
+import com.renanresende.bridgetotalk.domain.people.Agent;
 
 import java.util.List;
 import java.util.UUID;

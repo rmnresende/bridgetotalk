@@ -2,6 +2,7 @@ package com.renanresende.bridgetotalk.adapter.in.web.dto.queue;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.renanresende.bridgetotalk.domain.attendance.DistributionStrategy;
+import com.renanresende.bridgetotalk.domain.attendance.QueueSettings;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -13,6 +14,7 @@ public record ResponseQueueDto(
         DistributionStrategy distributionStrategy,
         Instant createdAt,
         Instant updatedAt,
-        Instant deletedAt
+        Instant deletedAt,
+        QueueSettings settings
 ) {
 }

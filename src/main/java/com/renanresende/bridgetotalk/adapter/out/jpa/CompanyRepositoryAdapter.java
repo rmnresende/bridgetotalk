@@ -3,8 +3,8 @@ package com.renanresende.bridgetotalk.adapter.out.jpa;
 import com.renanresende.bridgetotalk.adapter.out.jpa.mapper.CompanyJpaMapper;
 import com.renanresende.bridgetotalk.application.port.out.CompanyRepositoryPort;
 import com.renanresende.bridgetotalk.domain.organization.Company;
-import com.renanresende.bridgetotalk.domain.organization.CompanySettings;
 import com.renanresende.bridgetotalk.domain.organization.CompanyNotFoundException;
+import com.renanresende.bridgetotalk.domain.organization.CompanySettings;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

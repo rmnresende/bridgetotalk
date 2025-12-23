@@ -10,8 +10,8 @@ import java.util.UUID;
 public interface SpringDataAgentQueueRepository
         extends JpaRepository<AgentQueueJpaEntity, AgentQueueId> {
 
-    List<AgentQueueJpaEntity> findByAgent_Id(UUID agentId);
+    List<AgentQueueJpaEntity> findByAgentId(UUID agentId);
 
-    List<AgentQueueJpaEntity> findByQueue_Id(UUID queueId);
+    List<AgentQueueJpaEntity> findByQueueId(UUID queueId);
 }
 

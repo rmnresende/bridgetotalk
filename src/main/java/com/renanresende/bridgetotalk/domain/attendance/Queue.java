@@ -27,7 +27,8 @@ public class Queue {
                     DistributionStrategy distributionStrategy,
                     Instant createdAt,
                     Instant updatedAt,
-                    Instant deletedAt) {
+                    Instant deletedAt,
+                    QueueSettings settings) {
         this.id = id;
         this.companyId = companyId;
         this.name = name;
@@ -35,12 +36,14 @@ public class Queue {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
+        this.settings = settings;
     }
 
     public static Queue createNew(
                  UUID companyId,
                  String name,
-                 DistributionStrategy distributionStrategy) {
+                 DistributionStrategy distributionStrategy,
+                 QueueSettings settings) {
 
         if (DomainStrings.isBlank(name)){
             throw new BusinessException("Queue name can not be blank");
@@ -52,13 +55,19 @@ public class Queue {
 
         var now = Instant.now();
 
+        if(Objects.isNull(settings)){
+            settings = QueueSettings.initializeWithDefaultSettings();
+        }
+
         return new Queue(UUID.randomUUID(),
                          companyId,
                          name,
                          distributionStrategy,
                          now,
                          now,
-                null);
+                null,
+                         settings
+        );
     }
 
     public static Queue rehydrate(
@@ -68,18 +77,27 @@ public class Queue {
                                     DistributionStrategy distributionStrategy,
                                     Instant createdAt,
                                     Instant updatedAt,
-                                    Instant deletedAt
+                                    Instant deletedAt,
+                                    QueueSettings settings
     ){
-        return new Queue(id, companyId, name, distributionStrategy, createdAt, updatedAt, deletedAt);
+        return new Queue(id, companyId, name, distributionStrategy, createdAt, updatedAt, deletedAt, settings);
     }
 
     public static Queue hydrate(
             UUID id,
             UUID companyId,
             String name,
-            DistributionStrategy distributionStrategy
+            DistributionStrategy distributionStrategy,
+            QueueSettings settings
     ){
-        return new Queue(id, companyId, name, distributionStrategy, null, null, null);
+        return new Queue(id,
+                        companyId,
+                        name,
+                        distributionStrategy,
+                        null,
+                        null,
+                        null,
+                        settings);
     }
 
     public void update( String name,

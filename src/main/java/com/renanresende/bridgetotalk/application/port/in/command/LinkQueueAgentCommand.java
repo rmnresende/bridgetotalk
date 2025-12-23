@@ -5,7 +5,6 @@ import java.util.UUID;
 public record LinkQueueAgentCommand(
         UUID queueId,
         UUID agentId,
-        UUID companyId,
         Integer priority
 ) {
 }

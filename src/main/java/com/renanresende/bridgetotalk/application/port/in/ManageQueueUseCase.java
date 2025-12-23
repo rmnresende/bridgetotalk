@@ -4,8 +4,8 @@ import com.renanresende.bridgetotalk.adapter.in.web.dto.queue.QueueFilter;
 import com.renanresende.bridgetotalk.application.port.in.command.CreateQueueCommand;
 import com.renanresende.bridgetotalk.application.port.in.command.LinkQueueAgentCommand;
 import com.renanresende.bridgetotalk.application.port.in.command.UpdateQueueCommand;
-import com.renanresende.bridgetotalk.domain.people.Agent;
 import com.renanresende.bridgetotalk.domain.attendance.Queue;
+import com.renanresende.bridgetotalk.domain.people.Agent;
 
 import java.util.List;
 import java.util.UUID;

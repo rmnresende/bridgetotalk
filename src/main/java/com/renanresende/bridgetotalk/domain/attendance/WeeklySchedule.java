@@ -1,7 +1,6 @@
 package com.renanresende.bridgetotalk.domain.attendance;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.EnumMap;
 import java.util.List;
@@ -11,10 +10,15 @@ public class WeeklySchedule {
 
     private Map<DayOfWeek, DailySchedule> schedules;
 
-    public WeeklySchedule() {}
+    public WeeklySchedule() {
+    }
 
     private WeeklySchedule(Map<DayOfWeek, DailySchedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public Map<DayOfWeek, DailySchedule> getSchedules() {
+        return Map.copyOf(schedules); // retorna cópia imutável para preservar encapsulamento
     }
 
     /**
@@ -51,11 +55,16 @@ public class WeeklySchedule {
     /**
      * A day without ranges, is a closed day. Return true if the time of the day,
      * is contained within any of the daily ranges.
+     *
      * @param dateTime
      * @return
      */
     public boolean isOpenAt(QueueDateTime dateTime) {
         var daily = schedules.get(dateTime.dayOfWeek());
         return daily != null && daily.isWithin(dateTime.time());
+    }
+
+    public Map<DayOfWeek, DailySchedule> toMap() {
+        return Map.copyOf(schedules);
     }
 }

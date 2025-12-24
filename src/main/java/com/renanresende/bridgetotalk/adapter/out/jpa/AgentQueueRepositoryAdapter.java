@@ -58,10 +58,9 @@ public class AgentQueueRepositoryAdapter implements AgentQueueRepositoryPort {
         var agentRef = em.getReference(AgentJpaEntity.class, agentId);
         var queueRef = em.getReference(QueueJpaEntity.class, queueId);
 
-
         var entity = new AgentQueueJpaEntity(
                 new AgentQueueId(agentId, queueId),
-                agentRef, // set via reference
+                agentRef,
                 queueRef,
                 priority,
                 Instant.now()

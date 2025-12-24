@@ -50,6 +50,9 @@ public class AgentJpaEntity {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
+    @Column(name = "active_conversations", nullable = false)
+    private int activeConversations;
+
     @OneToMany(
             mappedBy = "agent",
             cascade = CascadeType.ALL,

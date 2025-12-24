@@ -7,5 +7,6 @@ public record CompanySettingsUpdateDto(
         Integer maxQueues,
         String timezone,
         String language,
-        Plan plan
+        Plan plan,
+        int maxConcurrentConversationsPerAgent
 ) {}

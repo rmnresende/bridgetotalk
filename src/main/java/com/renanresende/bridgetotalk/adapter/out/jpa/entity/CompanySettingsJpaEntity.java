@@ -46,4 +46,7 @@ public class CompanySettingsJpaEntity {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    @Column(name = "max_concurrent_conversations_per_agent", nullable = false)
+    private int maxConcurrentConversationsPerAgent;
 }

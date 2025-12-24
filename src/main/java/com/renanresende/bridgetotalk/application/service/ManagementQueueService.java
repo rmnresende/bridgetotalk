@@ -60,8 +60,7 @@ public class ManagementQueueService implements ManageQueueUseCase {
 
     @Override
     public List<Queue> getAllActiveQueuesFromCompany(UUID companyId) {
-        var resposnse = queueRepository.findAllActiveQueuesByCompanyId(companyId);
-        return resposnse;
+        return queueRepository.findAllActiveQueuesByCompanyId(companyId);
     }
 
     @Override
@@ -111,10 +110,6 @@ public class ManagementQueueService implements ManageQueueUseCase {
         var existingAgent = agentRepository.findById(agentId)
                                            .orElseThrow(() -> new AgentNotFoundException(agentId));
 
-        if(existingAgent.isNotAvailable()){
-            throw new BusinessException("Agent must be available to be linked to a queue");
-        }
-
         if (!existingAgent.getCompanyId().equals(existingQueue.getCompanyId())) {
             throw new BusinessException("Agent and Queue must belong to the same company");
         }
@@ -135,7 +130,7 @@ public class ManagementQueueService implements ManageQueueUseCase {
     private void validateQueueUpdatePreConditions(UUID queueId, UUID companyId, String name) {
 
         queueRepository.findByIdAndCompanyId(queueId, companyId)
-                .orElseThrow(() -> new QueueNotFoundException(queueId));
+                       .orElseThrow(() -> new QueueNotFoundException(queueId));
 
         if (existisQueueInCompanyWithSameName(name, companyId)) {
             throw new ResourceAlreadyExistsException("Already exists a queue with same name in this company");

@@ -7,6 +7,8 @@ import com.renanresende.bridgetotalk.domain.shared.exception.BusinessException;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import java.util.Objects;
+
 @Mapper(
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
@@ -24,36 +26,34 @@ public interface CompanySettingsDtoMapper {
 
         CompanySettings companySettingsFromPlan = null;
 
+        //default values from plan
         if (companySettingsUpdateDTO.plan() != null) {
-
-            // gera o domain com informacoes default do plano
             companySettingsFromPlan = CompanySettings.createFromPlan(companySettingsUpdateDTO.plan());
-
-            if (companySettingsUpdateDTO.maxAgents() != null) {
-                companySettingsFromPlan.setMaxAgents(companySettingsUpdateDTO.maxAgents());
-            }
-
-            if (companySettingsUpdateDTO.maxQueues() != null) {
-                companySettingsFromPlan.setMaxQueues(companySettingsUpdateDTO.maxQueues());
-            }
-
-            if (companySettingsUpdateDTO.timezone() != null) {
-                companySettingsFromPlan.setTimezone(companySettingsUpdateDTO.timezone());
-            }
-
-            if (companySettingsUpdateDTO.language() != null) {
-                companySettingsFromPlan.setLanguage(companySettingsUpdateDTO.language());
-            }
-
-            return companySettingsFromPlan;
         }
 
-        return new CompanySettings(companySettingsUpdateDTO.maxAgents(),
-                companySettingsUpdateDTO.maxQueues(),
-                companySettingsUpdateDTO.timezone(),
-                companySettingsUpdateDTO.language(),
-                null,
-                null);
+        //custom values
+        var maxAgents = Objects.isNull(companySettingsUpdateDTO.maxAgents()) ?
+                companySettingsFromPlan.getMaxAgents() : companySettingsUpdateDTO.maxAgents();
 
+        var maxQueues = Objects.isNull(companySettingsUpdateDTO.maxQueues()) ?
+                companySettingsFromPlan.getMaxQueues() : companySettingsUpdateDTO.maxQueues();
+
+        var timezone = Objects.isNull(companySettingsUpdateDTO.timezone()) ?
+                companySettingsFromPlan.getTimezone() : companySettingsUpdateDTO.timezone();
+
+        var language = Objects.isNull(companySettingsUpdateDTO.language()) ?
+                companySettingsFromPlan.getLanguage() : companySettingsUpdateDTO.language();
+
+        var maxConcurrentConversationsPerAgent = Objects.isNull(companySettingsUpdateDTO.maxConcurrentConversationsPerAgent()) ?
+                companySettingsFromPlan.getMaxConcurrentConversationsPerAgent() : companySettingsUpdateDTO.maxConcurrentConversationsPerAgent();
+
+        return new CompanySettings(maxAgents,
+                                   maxQueues,
+                                   timezone,
+                                   language,
+                          null,
+                              null,
+                                   maxConcurrentConversationsPerAgent
+        );
     }
 }

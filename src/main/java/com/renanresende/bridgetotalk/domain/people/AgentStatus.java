@@ -21,7 +21,6 @@ public enum AgentStatus {
         try {
             return AgentStatus.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {
-            // Isso não deve acontecer se a validação passou, mas é defesa
             throw new IllegalStateException("Valor inválido após validação: " + value);
         }
     }

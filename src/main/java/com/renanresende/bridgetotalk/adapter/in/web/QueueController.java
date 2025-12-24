@@ -107,7 +107,7 @@ public class QueueController {
         return ResponseEntity.ok(agentsResponse);
     }
 
-    @PostMapping("{queueId}/agents/{agentId}")
+    @PutMapping("/{queueId}/agents/{agentId}")
     public ResponseEntity<Void> linkAgentToQueue(@PathVariable UUID queueId,
                                                  @PathVariable UUID agentId,
                                                  @Valid @RequestBody QueueAgentLinkDto request){
@@ -117,7 +117,7 @@ public class QueueController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("{queueId}/agents/{agentId}/companies/{companyId}")
+    @DeleteMapping("/{queueId}/agents/{agentId}")
     public ResponseEntity<Void> unlinkAgentFromQueue(@PathVariable UUID queueId,
                                                      @PathVariable UUID agentId){
         service.unlinkAgentFromQueue(agentId, queueId);

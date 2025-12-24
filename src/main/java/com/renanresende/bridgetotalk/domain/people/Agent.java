@@ -19,6 +19,7 @@ public class Agent {
     private Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
+    private int activeConversations;
 
     private Agent(UUID id,
                   UUID companyId,
@@ -29,7 +30,8 @@ public class Agent {
                   AgentStatus status,
                   Instant createdAt,
                   Instant updatedAt,
-                  Instant deletedAt
+                  Instant deletedAt,
+                  int activeConversations
     ){
         this.id = id;
         this.companyId = companyId;
@@ -41,6 +43,7 @@ public class Agent {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
+        this.activeConversations = activeConversations;
     }
 
     public static Agent rehydrate(UUID id,
@@ -52,7 +55,8 @@ public class Agent {
                                   AgentStatus status,
                                   Instant createdAt,
                                   Instant updatedAt,
-                                  Instant deletedAt
+                                  Instant deletedAt,
+                                  int activeConversations
     ){
        return new Agent(id,
                         companyId,
@@ -63,7 +67,8 @@ public class Agent {
                         status,
                         createdAt,
                         updatedAt,
-                        deletedAt
+                        deletedAt,
+                        activeConversations
        );
     }
 
@@ -74,19 +79,20 @@ public class Agent {
                                   String passwordHash,
                                   AgentRole role) {
 
-        var now = Instant.now(); // Gera valores de Domínio internamente
+        var now = Instant.now();
 
         return new Agent(
-                UUID.randomUUID(),// Gera valores de Domínio internamente
+                UUID.randomUUID(),// generate domain values internally
                 companyId,
                 name,
                 email,
                 passwordHash,
                 role,
-                AgentStatus.OFFLINE, // Novo Agente deve começar como OFFLINE
+                AgentStatus.OFFLINE, // new agent start with offline status
                 now,
                 now,
-                null
+                null,
+                0 //new agent start with no active conversations
         );
     }
 
@@ -102,5 +108,23 @@ public class Agent {
 
     public boolean isNotAvailable(){
         return AgentStatus.AVAILABLE != this.status;
+    }
+
+    public boolean canReceiveNewConversation(int maxConcurrent) {
+        if (status == AgentStatus.OFFLINE || status == AgentStatus.PAUSED) {
+            return false;
+        }
+        return activeConversations < maxConcurrent;
+    }
+
+    public void incrementActiveConversations() {
+        this.activeConversations++;
+    }
+
+    public void decrementActiveConversations() {
+        if (this.activeConversations == 0) {
+            throw new BusinessException("Active conversations cannot be negative");
+        }
+        this.activeConversations--;
     }
 }

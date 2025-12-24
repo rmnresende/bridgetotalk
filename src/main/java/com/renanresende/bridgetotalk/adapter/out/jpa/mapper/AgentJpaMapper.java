@@ -20,10 +20,10 @@ public interface AgentJpaMapper {
                 entity.getStatus(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt(),
-                entity.getDeletedAt()
+                entity.getDeletedAt(),
+                entity.getActiveConversations()
         );
     }
-
 
     AgentJpaEntity toEntity(Agent agent);
 }

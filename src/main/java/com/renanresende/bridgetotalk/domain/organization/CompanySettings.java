@@ -13,6 +13,7 @@ public class CompanySettings {
     private String language;
     private Instant updatedAt;
     private Plan plan;
+    private int maxConcurrentConversationsPerAgent;
 
     public CompanySettings(
             int maxAgents,
@@ -20,8 +21,14 @@ public class CompanySettings {
             String timezone,
             String language,
             Instant updatedAt,
-            Plan plan
+            Plan plan,
+            int maxConcurrentConversationsPerAgent
     ) throws BusinessException {
+
+        if (maxConcurrentConversationsPerAgent <= 0) {
+            throw new BusinessException("Max concurrent conversations must be greater than zero");
+        }
+
         this.maxAgents = validatePositive(maxAgents, "maxAgents");
         this.maxQueues = validatePositive(maxQueues, "maxQueues");
 
@@ -29,10 +36,10 @@ public class CompanySettings {
         this.language = language;
         this.updatedAt = updatedAt == null ? Instant.now() : updatedAt;
         this.plan = plan;
+        this.maxConcurrentConversationsPerAgent = maxConcurrentConversationsPerAgent;
     }
 
-    // Factory method para criação inicial
-    //TODO verificar crate company
+    // Factory method
     public static CompanySettings createFromPlan(Plan plan) {
 
         if(plan == null) {
@@ -45,7 +52,8 @@ public class CompanySettings {
                 "UTC",                           // default timezone
                 "en",                                    // default language
                 Instant.now(),
-                plan
+                plan,
+                plan.getMaxConcurrentConversationsPerAgent()
         );
     }
 
@@ -86,6 +94,7 @@ public class CompanySettings {
     public String getLanguage() { return language; }
     public Instant getUpdatedAt() { return updatedAt; }
     public Plan getPlan() { return plan; }
+    public int getMaxConcurrentConversationsPerAgent() { return maxConcurrentConversationsPerAgent; }
 
     public void setMaxAgents(int maxAgents) throws BusinessException {
         this.maxAgents = validatePositive(maxAgents, "maxAgents");

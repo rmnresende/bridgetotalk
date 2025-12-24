@@ -12,5 +12,4 @@ public enum ConversationStatus {
     ConversationStatus(String description) {
         this.description = description;
     }
-    // ... (Construtor e getter)
 }

@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 @Configuration
-@Profile({"local"})
+@Profile({"local", "docker"})
 @Slf4j
 public class FakeDataSeeder {
 

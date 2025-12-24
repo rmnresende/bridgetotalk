@@ -1,7 +1,15 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bridgetotalk
+    username: talk
+    password: talk123
   jpa:
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
   flyway:
     enabled: true
     locations: classpath:db/migration
@@ -32,9 +40,3 @@ management:
   info:
     env:
       enabled: true
-
-info:
-  app:
-    name: ${spring.application.name}
-    description: BridgeToTalk API (Local)
-    version: 0.0.1-SNAPSHOT

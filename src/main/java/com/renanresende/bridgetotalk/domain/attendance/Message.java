@@ -7,7 +7,7 @@ public class Message {
 
     private final UUID id;
     private final UUID conversationId;
-    private SenderType senderType; // Importado de com.renanresende.talkbridge.domain
+    private SenderType senderType;
     private String content;
     private String contentType;
     private String status;

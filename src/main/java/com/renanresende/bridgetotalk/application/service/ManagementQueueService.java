@@ -98,7 +98,7 @@ public class ManagementQueueService implements ManageQueueUseCase {
         companyRepository.findById(companyId)
                          .orElseThrow(() -> new CompanyNotFoundException(companyId));
 
-        if (existisQueueInCompanyWithSameName(name, companyId)) {
+        if (existsQueueInCompanyWithSameName(name, companyId)) {
             throw new ResourceAlreadyExistsException("Already exists a queue with same name in this company");
         }
     }
@@ -120,12 +120,12 @@ public class ManagementQueueService implements ManageQueueUseCase {
         queueRepository.findByIdAndCompanyId(queueId, companyId)
                        .orElseThrow(() -> new QueueNotFoundException(queueId));
 
-        if (existisQueueInCompanyWithSameName(name, companyId)) {
+        if (existsQueueInCompanyWithSameName(name, companyId)) {
             throw new ResourceAlreadyExistsException("Already exists a queue with same name in this company");
         }
     }
 
-    private boolean existisQueueInCompanyWithSameName(String name, UUID companyId) {
+    private boolean existsQueueInCompanyWithSameName(String name, UUID companyId) {
         return queueRepository.findByCompanyIdAndName(companyId, name).isPresent();
     }
 }

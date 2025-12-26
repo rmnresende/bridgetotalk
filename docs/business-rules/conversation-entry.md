@@ -37,6 +37,18 @@ existence is independent of agent availability or business hours.
 
 ---
 
+## Conversation transfers between queues
+
+- A conversation may be transferred between queues.
+
+- The current queue represents the active routing context.
+
+- Every transfer must be recorded in the conversation queue history.
+
+- Transfers do not reset the conversation lifecycle.
+
+---
+
 ## Conversation Status Semantics
 
 The system uses conversation status to represent **intent and lifecycle**,
@@ -53,8 +65,7 @@ Recommended high-level statuses:
 - `CLOSED`  
   The conversation has been finalized.
 
-Contextual information (e.g. initiated outside business hours) must be
-represented separately from the core status.
+Contextual information (e.g. initiated outside business hours) must be represented separately from the core status as metadata or domain context flags.
 
 ---
 

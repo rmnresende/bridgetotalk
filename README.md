@@ -20,7 +20,7 @@ This project is intentionally designed as a reference implementation for backend
 tudy architecture beyond CRUD-based examples.
 
 The core function is to route incoming customer messages to available human agents through a dynamic queue system, 
-managing the entire lifecycle of a conversation (from **WAITING_IN_QUEUE** to **CLOSED**).
+managing the entire lifecycle of a conversation (from **WAITING_FOR_ATTENDANCE** to **CLOSED**).
 
 ---
 

@@ -11,7 +11,10 @@ public class QueueSettings {
 
     private WeeklySchedule weeklySchedule;
 
+    //null means no limit
     private Duration autoCloseAfterInactivity;
+
+    //null means no limit
     private Duration maxWaitingTime;
 
     private QueueSettings(AutomatedMessage welcomeMessage,

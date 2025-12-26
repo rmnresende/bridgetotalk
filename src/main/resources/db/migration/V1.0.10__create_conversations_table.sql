@@ -28,8 +28,6 @@ CREATE TABLE conversations (
         CONSTRAINT fk_conversation_agent FOREIGN KEY (agent_id) REFERENCES agents(id),
         CONSTRAINT fk_conversation_channel FOREIGN KEY (channel_id) REFERENCES channels(id),
         CONSTRAINT chk_conversation_status CHECK (status IN ('OUT_OF_BUSINESS_HOURS', 'WAITING_FOR_ATTENDANCE', 'IN_ATTENDANCE', 'PENDING', 'WAITING_FOR_CUSTOMER', 'CLOSED'))
-
-
 );
 
 CREATE INDEX idx_conversation_active_customer
@@ -37,5 +35,5 @@ CREATE INDEX idx_conversation_active_customer
     WHERE status <> 'CLOSED';
 
 CREATE INDEX idx_conversation_queue_status
-    ON conversations(queue_id, status);
+    ON conversations(current_queue_id, status);
 
